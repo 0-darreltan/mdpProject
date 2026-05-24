@@ -25,3 +25,25 @@ replay_pid*
 
 # Kotlin Gradle plugin data, see https://kotlinlang.org/docs/whatsnew20.html#new-directory-for-kotlin-data-in-gradle-projects
 .kotlin/
+
+# --- Mengabaikan Node Modules di Backend ---
+backend/node_modules/
+
+# --- Mengabaikan file sistem dan build Android Studio di Frontend ---
+# Build folder
+frontend/build/
+frontend/app/build/
+
+# Gradle files
+frontend/.gradle/
+
+# Local configuration file (menyimpan path SDK di komputermu)
+frontend/local.properties
+
+# IntelliJ IDEA project files
+frontend/.idea/
+*.iml
+
+# Keystore files (Opsional, tapi sangat disarankan agar kunci aplikasimu tidak bocor)
+*.jks
+*.keystore
