@@ -29,7 +29,6 @@ const sampleLocations = [
     ],
     latitude: -7.279612,
     longitude: 112.766324,
-    // PASANG URL CLOUDINARY DI SINI
     image_url:
       "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480367/menur_tulzul.png",
   },
@@ -49,7 +48,6 @@ const sampleLocations = [
     ],
     latitude: -7.271123,
     longitude: 112.752411,
-    // PASANG URL CLOUDINARY DI SINI
     image_url:
       "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480406/gubeng_mhc989.jpg",
   },
@@ -63,25 +61,20 @@ const sampleLocations = [
     ],
     latitude: -7.282345,
     longitude: 112.794123,
-    // PASANG URL CLOUDINARY DI SINI
     image_url:
       "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480370/sukolilo_uqtqys.jpg",
   },
 ];
 
-// FUNGSI UTAMA SEEDER
 const seedData = async () => {
   try {
-    // 1. Hubungkan ke Database MongoDB
     await mongoose.connect(process.env.MONGO_URI);
     console.log("Database connected for seeding...");
 
-    // 2. Bersihkan data lama agar tidak duplikat saat script dijalankan ulang
     await User.deleteMany();
     await DropoffLocation.deleteMany();
     console.log("Old data cleared from Users and Locations.");
 
-    // 3. Proses Hashing Password untuk User sebelum di-insert
     const encryptedUsers = await Promise.all(
       sampleUsers.map(async (user) => {
         const salt = await bcrypt.genSalt(10);
@@ -93,15 +86,12 @@ const seedData = async () => {
       }),
     );
 
-    // 4. Masukkan data User ke MongoDB
     await User.insertMany(encryptedUsers);
     console.log("Sample users seeded successfully!");
 
-    // 5. Masukkan data Lokasi ke MongoDB
     await DropoffLocation.insertMany(sampleLocations);
     console.log("Sample locations (Array of Objects) seeded successfully!");
 
-    // 6. Selesai dan Putuskan Koneksi
     mongoose.connection.close();
     console.log("Database connection closed. Seeding Done!");
     process.exit(0);

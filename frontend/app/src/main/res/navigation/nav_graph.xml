@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://tools.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.retech.ui.auth.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.retech.ui.auth.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.retech.ui.home.HomeFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_dropoffMapFragment"
+            app:destination="@id/dropoffMapFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_careGuideFragment"
+            app:destination="@id/careGuideFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_ecoImpactFragment"
+            app:destination="@id/ecoImpactFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/inventoryFragment"
+        android:name="com.example.retech.ui.inventory.InventoryFragment"
+        android:label="My Inventory"
+        tools:layout="@layout/fragment_inventory">
+        <action
+            android:id="@+id/action_inventoryFragment_to_addDeviceFragment"
+            app:destination="@id/addDeviceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addDeviceFragment"
+        android:name="com.example.retech.ui.inventory.AddDeviceFragment"
+        android:label="Add New Device"
+        tools:layout="@layout/fragment_add_device" />
+
+    <fragment
+        android:id="@+id/dropoffFragment"
+        android:name="com.example.retech.ui.map.DropoffFragment"
+        android:label="Recycle Centers"
+        tools:layout="@layout/fragment_dropoff">
+        <action
+            android:id="@+id/action_dropoffFragment_to_dropoffDetailFragment"
+            app:destination="@id/dropoffDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dropoffDetailFragment"
+        android:name="com.example.retech.ui.map.DropoffDetailFragment"
+        android:label="Center Detail"
+        tools:layout="@layout/fragment_dropoff_detail">
+        <argument
+            android:name="locationId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/careGuideFragment"
+        android:name="com.example.retech.ui.care.CareGuideFragment"
+        android:label="Hardware Care Guides"
+        tools:layout="@layout/fragment_care_guide" />
+
+    <fragment
+    android:id="@+id/ecoImpactFragment"
+    android:name="com.example.retech.ui.impact.EcoImpactFragment"
+    android:label="Eco Analytics"
+    tools:layout="@layout/fragment_eco_impact" />
+
+</navigation>
