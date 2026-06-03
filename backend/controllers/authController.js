@@ -1,0 +1,76 @@
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+
+const register = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Semua field harus diisi!" });
+    }
+
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ message: "Email sudah terdaftar!" });
+    }
+
+    if (password.length < 6) {
+      return res
+        .status(400)
+        .json({ message: "Password harus minimal 6 karakter!" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    return res
+      .status(201)
+      .json({ success: true, message: "Registrasi berhasil!" });
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).json({ message: "Server Error saat registrasi" });
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: "Semua field harus diisi!" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Email atau password salah!" });
+    }
+
+    const cekPass = await bcrypt.compare(password, user.password);
+    if (!cekPass) {
+      return res.status(400).json({ message: "Email atau password salah!" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Login sukses!",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).json({ message: "Server Error saat registrasi" });
+  }
+};
+
+module.exports = {
+  register,
+  login,
+};
