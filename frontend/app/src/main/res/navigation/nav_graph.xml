@@ -36,7 +36,7 @@
             app:destination="@id/inventoryFragment" />
         <action
             android:id="@+id/action_homeFragment_to_dropoffMapFragment"
-            app:destination="@id/dropoffMapFragment" />
+            app:destination="@id/dropoffFragment" />
         <action
             android:id="@+id/action_homeFragment_to_careGuideFragment"
             app:destination="@id/careGuideFragment" />
