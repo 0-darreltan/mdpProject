@@ -1,60 +1,133 @@
 package com.example.retech.ui.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialRequest
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.retech.R
+import com.example.retech.data.remote.RetrofitClient
+import com.example.retech.data.remote.api.GoogleAuthRequest
+import com.example.retech.databinding.FragmentRegisterBinding
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RegisterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RegisterFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.tvRegister4.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
+
+        binding.btnRegistEmail.setOnClickListener {
+            val nama = binding.etNamaRegist.text.toString()
+            val email = binding.etEmailRegist.text.toString()
+            val password = binding.etPassRegist.text.toString()
+            // Implementasi registrasi manual jika diperlukan
+        }
+
+        binding.btnRegistGoogle.setOnClickListener {
+            jalankanGoogleRegister()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+    private fun jalankanGoogleRegister() {
+        val credentialManager = CredentialManager.create(requireContext())
+
+        // Pastikan Client ID ini sesuai dengan yang ada di Google Cloud Console (Web Client ID)
+        val serverClientId = "710758978133-r3so0vmkncr4uqmrm67akb62hbmctjnr.apps.googleusercontent.com"
+
+        val googleIdOption = GetGoogleIdOption.Builder()
+            .setFilterByAuthorizedAccounts(false)
+            .setServerClientId(serverClientId)
+            .setAutoSelectEnabled(false)
+            .build()
+
+        val request = GetCredentialRequest.Builder()
+            .addCredentialOption(googleIdOption)
+            .build()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val result = credentialManager.getCredential(requireContext(), request)
+                val credential = result.credential
+
+                when {
+                    credential is GoogleIdTokenCredential -> {
+                        // Path langsung (beberapa versi library)
+                        val emailUser = credential.id
+                        val namaUser = credential.displayName ?: "User ReTech"
+                        Log.d("ReTechGoogleRegist", "Sukses Google! Nama: $namaUser, Email: $emailUser")
+                        kirimDataKeBackendExpress(namaUser, emailUser)
+                    }
+                    credential is CustomCredential &&
+                    credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL -> {
+                        // Path via CustomCredential (versi library 1.1.x)
+                        val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+                        val emailUser = googleIdTokenCredential.id
+                        val namaUser = googleIdTokenCredential.displayName ?: "User ReTech"
+                        Log.d("ReTechGoogleRegist", "Sukses Google! Nama: $namaUser, Email: $emailUser")
+                        kirimDataKeBackendExpress(namaUser, emailUser)
+                    }
+                    else -> {
+                        Log.e("ReTechGoogleRegist", "Tipe credential tidak dikenali: ${credential.type}")
+                        Toast.makeText(requireContext(), "Gagal: Tipe akun tidak didukung (${credential.type})", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("ReTechGoogleRegist", "Gagal/Batal memilih Google: ${e.message}")
+                Toast.makeText(requireContext(), "Gagal/Batal Login Google", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RegisterFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RegisterFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun kirimDataKeBackendExpress(nama: String, email: String) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val requestBody = GoogleAuthRequest(name = nama, email = email)
+                val response = RetrofitClient.instance.loginRegisterWithGoogle(requestBody)
+
+                if (response.isSuccessful && response.body() != null) {
+                    val authData = response.body()!!
+                    Toast.makeText(requireContext(), "Login Sukses! Selamat datang ${authData.user?.name}", Toast.LENGTH_SHORT).show()
+                    
+                    // Navigasi ke Home
+                    findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                } else {
+                    val errorMsg = response.errorBody()?.string() ?: "Gagal sinkronisasi"
+                    Log.e("BackendError", "Error: $errorMsg")
+                    Toast.makeText(requireContext(), "Gagal sinkronisasi ke server", Toast.LENGTH_SHORT).show()
                 }
+            } catch (e: Exception) {
+                Log.e("RetrofitError", "Koneksi Gagal: ${e.message}")
+                Toast.makeText(requireContext(), "Server tidak merespons. Cek koneksi/IP Backend.", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

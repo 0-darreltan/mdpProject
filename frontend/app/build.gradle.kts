@@ -49,27 +49,30 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout) // Constraint Layout Bawaan Aman di Sini
+    implementation(libs.androidx.constraintlayout)
 
-    // Jetpack Navigation Component untuk nav_graph
+    // Jetpack Navigation Component
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.cardview)
 
-    // Unit Testing Standar
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    // Credentials & Google Auth
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 
+    // Lifecycle
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
+    // Room
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx) // Mendukung Coroutine suspend function
+    implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
 
+    // Retrofit & Networking
     implementation(libs.retrofit.core)
-    implementation(libs.retrofit.converter.gson) // Converter JSON otomatis ke Object Kotlin
+    implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.logging)
 
     testImplementation(libs.junit)

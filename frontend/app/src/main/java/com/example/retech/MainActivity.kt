@@ -1,10 +1,8 @@
 package com.example.retech
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -16,22 +14,32 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        // Ambil NavHostFragment dari XML
+        
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Ambil NavHostFragment menggunakan binding, tidak perlu findViewById lagi
+        // Set the toolbar as the support action bar
+        setSupportActionBar(binding.toolbar)
+
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        // Sinkronisasi Action Bar atas dengan NavGraph
+        // Synchronize Action Bar with NavGraph
         setupActionBarWithNavController(navController)
+
+        // Hide Toolbar for Login and Register fragments
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.loginFragment || destination.id == R.id.registerFragment) {
+                supportActionBar?.hide()
+                binding.toolbar.visibility = View.GONE
+            } else {
+                supportActionBar?.show()
+                binding.toolbar.visibility = View.VISIBLE
+            }
+        }
     }
 
-    // Mengaktifkan fungsi tombol back panah di pojok kiri atas Action Bar
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }

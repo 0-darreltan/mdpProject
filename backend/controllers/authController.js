@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 const register = async (req, res) => {
   try {
@@ -50,14 +51,21 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "Email atau password salah!" });
     }
 
+    if (!user.password) {
+      return res.status(400).json({ message: "Email atau password salah!" });
+    }
+
     const cekPass = await bcrypt.compare(password, user.password);
     if (!cekPass) {
       return res.status(400).json({ message: "Email atau password salah!" });
     }
 
+    const token = user.generateAuthToken();
+
     return res.status(200).json({
       success: true,
       message: "Login sukses!",
+      token,
       user: {
         id: user._id,
         name: user.name,
@@ -66,11 +74,55 @@ const login = async (req, res) => {
     });
   } catch (err) {
     console.error(err.message);
-    return res.status(500).json({ message: "Server Error saat registrasi" });
+    return res.status(500).json({ message: "Server Error saat login" });
+  }
+};
+
+const loginWithGoogle = async (req, res) => {
+  try {
+    const { name, email } = req.body;
+
+    if (!name || !email) {
+      return res.status(400).json({ message: "Semua field harus diisi!" });
+    }
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      const randomPassword = crypto.randomBytes(16).toString("hex");
+
+      const hashedRandomPassword = await bcrypt.hash(randomPassword, 10);
+
+      user = await User.create({
+        name,
+        email,
+        password: hashedRandomPassword,
+        auth_provider: "google",
+      });
+    }
+
+    const token = user.generateAuthToken();
+
+    return res.status(200).json({
+      success: true,
+      message: "Login Berhasil",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (err) {
+    console.error(err.message);
+    return res
+      .status(500)
+      .json({ message: "Server Error saat login dengan Google" });
   }
 };
 
 module.exports = {
   register,
   login,
+  loginWithGoogle,
 };
