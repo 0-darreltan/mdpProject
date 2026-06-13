@@ -9,6 +9,16 @@ android {
     namespace = "com.example.retech"
     compileSdk = 36
 
+    // Konfigurasi Signing agar SHA-1 sama di semua laptop tim
+    signingConfigs {
+        create("sharedConfig") {
+            storeFile = file("keystore/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.example.retech"
         minSdk = 24
@@ -20,6 +30,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Menggunakan sharedConfig untuk build debug
+            signingConfig = signingConfigs.getByName("sharedConfig")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(

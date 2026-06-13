@@ -10,11 +10,11 @@ import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.retech.R
-import com.example.retech.data.remote.RetrofitClient
-import com.example.retech.data.remote.api.GoogleAuthRequest
+import com.example.retech.databaseViewModel.UserViewModel
 import com.example.retech.databinding.FragmentLoginBinding
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
@@ -23,6 +23,8 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,8 +38,22 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupObservers()
+
         binding.tvLogin4.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
+        binding.btnLoginEmail.setOnClickListener {
+            val email = binding.etEmailLogin.text.toString().trim()
+            val password = binding.etPassLogin.text.toString().trim()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(context, "Harap isi email dan password", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            userViewModel.login(email, password)
         }
 
         binding.btnLoginGoogle.setOnClickListener {
@@ -45,25 +61,44 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
+    private fun setupObservers() {
+        userViewModel.authResult.observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                Toast.makeText(context, "Login Berhasil! Selamat datang ${response.user?.name}", Toast.LENGTH_SHORT).show()
+                // TODO: Simpan token ke SessionManager jika perlu
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            }
+        }
+
+        userViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.btnLoginEmail.isEnabled = !isLoading
+            binding.btnLoginGoogle.isEnabled = !isLoading
+            // Anda bisa menambahkan ProgressBar jika ada di layout
+        }
+
+        userViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+            if (errorMessage != null) {
+                Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
     private fun jalankanGoogleSignIn() {
-        // Use androidx.credentials.CredentialManager (NOT android.credentials)
         val credentialManager = CredentialManager.create(requireContext())
 
-        val serverClientId = "710758978133-r3so0vmkncr4uqmrm67akb62hbmctjnr.apps.googleusercontent.com"
+        // Pastikan Client ID ini adalah WEB CLIENT ID dari Google Console
+        val serverClientId = "564624439884-1d3cpctd5us8sgpsu7hr2i7kldogj12e.apps.googleusercontent.com"
 
-        // Configure Google ID Option
         val googleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(false)
             .setServerClientId(serverClientId)
             .setAutoSelectEnabled(false)
             .build()
 
-        // Build the request
         val request = GetCredentialRequest.Builder()
             .addCredentialOption(googleIdOption)
             .build()
 
-        // Execute asynchronously
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val result = credentialManager.getCredential(requireContext(), request)
@@ -73,51 +108,23 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     credential is GoogleIdTokenCredential -> {
                         val emailUser = credential.id
                         val namaUser = credential.displayName ?: "User ReTech"
-                        Log.d("ReTechGoogleAuth", "Success! Name: $namaUser, Email: $emailUser")
-                        kirimDataKeBackendExpress(namaUser, emailUser)
+                        userViewModel.loginWithGoogle(namaUser, emailUser)
                     }
                     credential is CustomCredential &&
                     credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL -> {
-                        // Path via CustomCredential (versi library 1.1.x)
                         val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
                         val emailUser = googleIdTokenCredential.id
                         val namaUser = googleIdTokenCredential.displayName ?: "User ReTech"
-                        Log.d("ReTechGoogleAuth", "Success! Name: $namaUser, Email: $emailUser")
-                        kirimDataKeBackendExpress(namaUser, emailUser)
+                        userViewModel.loginWithGoogle(namaUser, emailUser)
                     }
                     else -> {
-                        Log.e("ReTechGoogleAuth", "Tipe tidak dikenali: ${credential.type}")
+                        Log.e("ReTechGoogleAuth", "Tipe tidak dikenali")
                         Toast.makeText(context, "Sign in gagal: tipe akun tidak didukung", Toast.LENGTH_LONG).show()
                     }
                 }
             } catch (e: Exception) {
                 Log.e("ReTechGoogleAuth", "Failed: ${e.message}")
                 Toast.makeText(context, "Sign in cancelled or failed", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun kirimDataKeBackendExpress(nama: String, email: String) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                val requestBody = GoogleAuthRequest(name = nama, email = email)
-                val response = RetrofitClient.instance.loginRegisterWithGoogle(requestBody)
-
-                if (response.isSuccessful && response.body() != null) {
-                    val authData = response.body()!!
-                    val tokenJWT = authData.token
-
-                    // TODO: Simpan tokenJWT ke SharedPreferences / SessionManager agar user tetap login
-
-                    Toast.makeText(context, "Login Sukses! Selamat datang ${authData.user?.name}", Toast.LENGTH_SHORT).show()
-
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                } else {
-                    Toast.makeText(context, "Gagal sinkronisasi ke server ReTech", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: Exception) {
-                Log.e("RetrofitError", "Koneksi Gagal: ${e.message}")
-                Toast.makeText(context, "Server tidak merespons, cek koneksi internet/IP", Toast.LENGTH_SHORT).show()
             }
         }
     }
