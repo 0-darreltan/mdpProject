@@ -60,20 +60,23 @@ class UserViewModel : ViewModel() {
 
     fun loginWithGoogle(name: String, email: String) {
         _isLoading.value = true
-        viewModelScope.launch {
-            try {
-                val googleData = mapOf("name" to name, "email" to email)
-                val response = RetrofitClient.userService.loginWithGoogle(googleData)
-                if (response.isSuccessful) {
-                    _authResult.value = response.body()
-                } else {
-                    _error.value = "Google Login Failed"
-                }
-            } catch (e: Exception) {
-                _error.value = "Error: ${e.message}"
-            } finally {
-                _isLoading.value = false
-            }
-        }
+        
+        val googleUser = Users(
+            _id = "google_${email}",
+            name = name,
+            email = email,
+            auth_provider = "google"
+        )
+        
+        val response = AuthResponse(
+            success = true,
+            message = "Login Google Sukses (Lokal)",
+            token = "local_google_token",
+            user = googleUser
+        )
+
+        // Set value langsung tanpa memanggil Retrofit
+        _authResult.value = response
+        _isLoading.value = false
     }
 }
