@@ -1,14 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/navbarHome"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#F4F4F4"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="135dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivProfileHome"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivNavbarHome"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="-10dp"
+                    android:layout_marginTop="-9dp"
+                    android:layout_marginEnd="-10dp"
+                    android:layout_marginBottom="-9dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/ic_launcher_foreground" />
+
+                <TextView
+                    android:id="@+id/tvNavbarHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-light"
+                    android:text="ReTech"
+                    android:textColor="#0F9D58"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivProfileHome"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="24dp"
+                android:src="@android:drawable/ic_menu_view"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/svContentHome"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+            tools:layout_editor_absoluteX="16dp" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clContentHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F4F4F4"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/tvHome1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Welcome Back, User."
+                    android:textColor="#1F2937"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="44dp" />
+
+                <TextView
+                    android:id="@+id/tvHome2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Your circular economy impact is growing."
+                    android:textColor="#1F2937"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="88dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardRegistered"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="145dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            android:src="@android:drawable/ic_menu_delete" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tvHome3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/plus_jakarta_sans_medium"
+                                android:letterSpacing="0.05"
+                                android:text="A C T I V E   I N V E N T O R Y"
+                                android:textColor="#0F9D58"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tvHome4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/plus_jakarta_sans_medium"
+                                android:text="0 Devices"
+                                android:textColor="#1F2937"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tvHome3" />
+
+                            <TextView
+                                android:id="@+id/tvHome5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/plus_jakarta_sans_medium"
+                                android:text="Registered"
+                                android:textColor="#1F2937"
+                                android:textSize="24sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tvHome4" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/btnAddDeviceHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="+ Add Device"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="310dp" />
+
+                <Button
+                    android:id="@+id/btnDropOffHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="⚲ Find Drop-Off"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="368dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"
+            app:layout_constraintBottom_toTopOf="@+id/svContentHome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/navbarHome">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
