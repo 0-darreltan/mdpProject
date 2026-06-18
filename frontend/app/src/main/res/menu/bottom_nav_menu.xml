@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/inventoryFragment"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:title="Inventory" />
+
+    <item
+        android:id="@+id/ecoImpactFragment"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="Impact" />
+
+    <item
+        android:id="@+id/careGuideFragment"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Care Guide" />
+</menu>

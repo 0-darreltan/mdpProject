@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController // Tambahkan import ini jika belum ada
 import com.example.retech.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView // Tambahkan import ini
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -26,15 +28,36 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController)
 
+        val bottomNav: BottomNavigationView = binding.bottomNavigation
+
+        bottomNav.setupWithNavController(navController)
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.loginFragment, R.id.registerFragment, R.id.homeFragment -> {
+                R.id.loginFragment, R.id.registerFragment -> {
                     supportActionBar?.hide()
                     binding.toolbar.visibility = View.GONE
+                    bottomNav.visibility = View.GONE
                 }
+
+                R.id.homeFragment -> {
+                    supportActionBar?.hide()
+                    binding.toolbar.visibility = View.GONE
+                    bottomNav.visibility = View.VISIBLE
+                }
+
+                // 3. Tambahkan ID fragment utama kalian yang lain di bawah sini jika ada (Inventory, dll.)
+                // Supaya saat berpindah ke tab tersebut, footer bawahnya tetap konsisten kelihatan.
+                // R.id.inventoryFragment, R.id.impactFragment -> {
+                //     supportActionBar?.hide()
+                //     binding.toolbar.visibility = View.GONE
+                //     bottomNav.visibility = View.VISIBLE
+                // }
+
                 else -> {
                     supportActionBar?.show()
                     binding.toolbar.visibility = View.VISIBLE
+                    bottomNav.visibility = View.GONE
                 }
             }
         }
