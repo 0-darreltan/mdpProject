@@ -7,16 +7,16 @@
 
     <item
         android:id="@+id/inventoryFragment"
-        android:icon="@android:drawable/ic_menu_gallery"
+        android:icon="@android:drawable/ic_menu_save"
         android:title="Inventory" />
 
     <item
-        android:id="@+id/ecoImpactFragment"
+        android:id="@+id/dropoffFragment"
         android:icon="@android:drawable/ic_menu_compass"
-        android:title="Impact" />
+        android:title="Map" />
 
     <item
         android:id="@+id/careGuideFragment"
-        android:icon="@android:drawable/ic_menu_manage"
-        android:title="Care Guide" />
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="Guides" />
 </menu>

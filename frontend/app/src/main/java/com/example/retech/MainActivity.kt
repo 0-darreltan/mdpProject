@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     bottomNav.visibility = View.GONE
                 }
 
-                R.id.homeFragment -> {
+                R.id.homeFragment, R.id.inventoryFragment, R.id.dropoffFragment, R.id.careGuideFragment -> {
                     supportActionBar?.hide()
                     binding.toolbar.visibility = View.GONE
                     bottomNav.visibility = View.VISIBLE

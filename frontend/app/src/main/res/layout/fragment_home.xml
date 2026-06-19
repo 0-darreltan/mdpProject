@@ -237,7 +237,7 @@
                     android:textColor="#1F2937"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/cardView"
+                    app:layout_constraintBottom_toTopOf="@+id/cvMapHome"
                     app:layout_constraintEnd_toStartOf="@+id/tvGlobalMap"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -260,10 +260,11 @@
                     app:layout_constraintTop_toTopOf="@+id/tvHome6" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
-                    android:layout_width="209dp"
-                    android:layout_height="200dp"
+                    android:id="@+id/cvMapHome"
+                    android:layout_width="370dp"
+                    android:layout_height="320dp"
                     android:layout_marginBottom="45dp"
+                    app:cardCornerRadius="10dp"
                     app:layout_constraintBottom_toTopOf="@+id/tvHome7"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -272,36 +273,42 @@
 
                 <TextView
                     android:id="@+id/tvHome7"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
                     android:text="Evolving Eco-Guides"
-                    app:layout_constraintBottom_toTopOf="@+id/cardView3"
+                    android:textColor="#1F2937"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/cvGuideHome1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
+                    app:layout_constraintTop_toBottomOf="@+id/cvMapHome" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView3"
-                    android:layout_width="209dp"
-                    android:layout_height="200dp"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/cardView4"
+                    android:id="@+id/cvGuideHome1"
+                    android:layout_width="370dp"
+                    android:layout_height="320dp"
+                    android:layout_marginBottom="24dp"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/cvGuideHome2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvHome7" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView4"
-                    android:layout_width="209dp"
-                    android:layout_height="200dp"
+                    android:id="@+id/cvGuideHome2"
+                    android:layout_width="370dp"
+                    android:layout_height="320dp"
+                    app:cardCornerRadius="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+                    app:layout_constraintTop_toBottomOf="@+id/cvGuideHome1" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
