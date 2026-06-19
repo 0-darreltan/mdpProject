@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController // Tambahkan import ini jika belum ada
@@ -30,30 +31,72 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNav: BottomNavigationView = binding.bottomNavigation
 
-        bottomNav.setupWithNavController(navController)
+        val menuOrder = listOf(
+            R.id.homeFragment,
+            R.id.inventoryFragment,
+            R.id.dropoffFragment,
+            R.id.careGuideFragment
+        )
+
+        bottomNav.setOnItemSelectedListener { item ->
+            val currentId = navController.currentDestination?.id
+            val destinationId = item.itemId
+
+            if (currentId != null && currentId != destinationId) {
+                val currentIndex = menuOrder.indexOf(currentId)
+                val destinationIndex = menuOrder.indexOf(destinationId)
+
+                val builder = NavOptions.Builder()
+                    .setLaunchSingleTop(true)
+                    .setRestoreState(true)
+
+                if (destinationIndex > currentIndex) {
+                    builder.setEnterAnim(R.anim.slide_in_right)
+                        .setExitAnim(R.anim.slide_out_left)
+                } else {
+                    builder.setEnterAnim(R.anim.slide_in_left)
+                        .setExitAnim(R.anim.slide_out_right)
+                }
+
+                navController.navigate(destinationId, null, builder.build())
+            }
+            true
+        }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (bottomNav.selectedItemId != destination.id) {
+                bottomNav.setOnItemSelectedListener(null)
+                bottomNav.selectedItemId = destination.id
+
+                bottomNav.setOnItemSelectedListener { item ->
+                    val currentId = navController.currentDestination?.id
+                    val destinationId = item.itemId
+                    if (currentId != null && currentId != destinationId) {
+                        val currentIndex = menuOrder.indexOf(currentId)
+                        val destinationIndex = menuOrder.indexOf(destinationId)
+                        val builder = NavOptions.Builder().setLaunchSingleTop(true).setRestoreState(true)
+                        if (destinationIndex > currentIndex) {
+                            builder.setEnterAnim(R.anim.slide_in_right).setExitAnim(R.anim.slide_out_left)
+                        } else {
+                            builder.setEnterAnim(R.anim.slide_in_left).setExitAnim(R.anim.slide_out_right)
+                        }
+                        navController.navigate(destinationId, null, builder.build())
+                    }
+                    true
+                }
+            }
+
             when (destination.id) {
                 R.id.loginFragment, R.id.registerFragment -> {
                     supportActionBar?.hide()
                     binding.toolbar.visibility = View.GONE
                     bottomNav.visibility = View.GONE
                 }
-
                 R.id.homeFragment, R.id.inventoryFragment, R.id.dropoffFragment, R.id.careGuideFragment -> {
                     supportActionBar?.hide()
                     binding.toolbar.visibility = View.GONE
                     bottomNav.visibility = View.VISIBLE
                 }
-
-                // 3. Tambahkan ID fragment utama kalian yang lain di bawah sini jika ada (Inventory, dll.)
-                // Supaya saat berpindah ke tab tersebut, footer bawahnya tetap konsisten kelihatan.
-                // R.id.inventoryFragment, R.id.impactFragment -> {
-                //     supportActionBar?.hide()
-                //     binding.toolbar.visibility = View.GONE
-                //     bottomNav.visibility = View.VISIBLE
-                // }
-
                 else -> {
                     supportActionBar?.show()
                     binding.toolbar.visibility = View.VISIBLE
