@@ -15,11 +15,62 @@
             android:id="@+id/navbarDropoff"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:background="#F4F4F4"
             app:layout_constraintBottom_toTopOf="@+id/svContentDropoff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutDropoff"
+                android:layout_width="135dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivProfileDropoff"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivNavbarDropoff"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="-10dp"
+                    android:layout_marginTop="-9dp"
+                    android:layout_marginEnd="-10dp"
+                    android:layout_marginBottom="-9dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/ic_launcher_foreground" />
+
+                <TextView
+                    android:id="@+id/tvNavbarDropoff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-light"
+                    android:text="ReTech"
+                    android:textColor="#0F9D58"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivProfileDropoff"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="24dp"
+                android:src="@android:drawable/ic_menu_view"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayoutDropoff"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/linearLayoutDropoff"
+                app:layout_constraintTop_toTopOf="@+id/linearLayoutDropoff" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -33,13 +84,154 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/navbarDropoff">
+            app:layout_constraintTop_toBottomOf="@+id/navbarDropoff"
+            tools:layout_editor_absoluteX="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clContentDropoff"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#F4F4F4"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp">
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvMapDropoff"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="16dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvSearchDropoff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="235dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clSearchDropoff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/tvDropoff1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="@font/plus_jakarta_sans_medium"
+                            android:text="Find Dropoff"
+                            android:textColorLink="#0F9D58"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/tvDropoff2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            tools:layout_editor_absoluteX="20dp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilNameDropoff"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvDropoff2"
+                            app:startIconDrawable="@android:drawable/ic_dialog_map"
+                            app:startIconTint="#1A2530">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etNameDropoff"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Dropoff Location"
+                                android:inputType="text"
+                                android:paddingStart="50dp"
+                                android:textColorHint="#A0A9B0"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/tvDropoff2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="@font/plus_jakarta_sans_medium"
+                            android:text="Locate specialized e-waste facilities for certified circular processing."
+                            android:textColorLink="#1F2937"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toTopOf="@+id/tilNameDropoff"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvDropoff1" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tvDropoff3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Nearby Dropoff"
+                    android:textColor="#0F9D58"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tvSortDropoff"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="437dp" />
+
+                <TextView
+                    android:id="@+id/tvSortDropoff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:drawableEnd="@android:drawable/arrow_down_float"
+                    android:drawablePadding="8dp"
+                    android:focusable="true"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:gravity="start"
+                    android:padding="8dp"
+                    android:text="Sort by\nProximity"
+                    android:textColor="#0F9D58"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvDropoff3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvDropoff3"
+                    app:layout_constraintTop_toTopOf="@+id/tvDropoff3" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvNearbyDropoff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_endToEndOf="parent"
+                    tools:layout_editor_absoluteY="514dp"
+                    tools:listitem="@layout/item_dropoff" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
