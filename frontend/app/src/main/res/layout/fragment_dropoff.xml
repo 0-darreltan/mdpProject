@@ -101,20 +101,25 @@
                     android:id="@+id/cvMapDropoff"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:layout_marginBottom="16dp"
                     app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/cvSearchDropoff"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="16dp" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvSearchDropoff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
                     app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/tvDropoff3"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="235dp">
+                    app:layout_constraintTop_toBottomOf="@+id/cvMapDropoff">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clSearchDropoff"
@@ -190,16 +195,18 @@
                     android:id="@+id/tvDropoff3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:fontFamily="@font/plus_jakarta_sans_medium"
                     android:text="Nearby Dropoff"
                     android:textColor="#0F9D58"
                     android:textSize="28sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/rvNearbyDropoff"
                     app:layout_constraintEnd_toStartOf="@+id/tvSortDropoff"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="437dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/cvSearchDropoff" />
 
                 <TextView
                     android:id="@+id/tvSortDropoff"
@@ -227,10 +234,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDropoff3"
                     app:layout_endToEndOf="parent"
-                    tools:layout_editor_absoluteY="514dp"
                     tools:listitem="@layout/item_dropoff" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
