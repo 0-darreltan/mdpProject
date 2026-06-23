@@ -59,13 +59,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.btnLoginGoogle.setOnClickListener {
             jalankanGoogleSignIn()
         }
+
+        binding.tvForgotPass.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
+        }
     }
 
     private fun setupObservers() {
         userViewModel.authResult.observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 Toast.makeText(context, "Login Berhasil! Selamat datang ${response.user?.name}", Toast.LENGTH_SHORT).show()
-                // TODO: Simpan token ke SessionManager jika perlu
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         }
@@ -73,7 +76,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         userViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.btnLoginEmail.isEnabled = !isLoading
             binding.btnLoginGoogle.isEnabled = !isLoading
-            // Anda bisa menambahkan ProgressBar jika ada di layout
         }
 
         userViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
@@ -86,7 +88,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun jalankanGoogleSignIn() {
         val credentialManager = CredentialManager.create(requireContext())
 
-        // Pastikan Client ID ini adalah WEB CLIENT ID dari Google Console
         val serverClientId = "564624439884-1d3cpctd5us8sgpsu7hr2i7kldogj12e.apps.googleusercontent.com"
 
         val googleIdOption = GetGoogleIdOption.Builder()

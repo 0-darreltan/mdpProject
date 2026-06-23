@@ -2,6 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://tools.android.com/tools"
+    xmlns:tools2="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
@@ -23,6 +24,9 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
     </fragment>
 
     <fragment
@@ -110,5 +114,14 @@
     android:name="com.example.retech.ui.impact.EcoImpactFragment"
     android:label="Eco Analytics"
     tools:layout="@layout/fragment_eco_impact" />
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.example.retech.ui.auth.ForgetPasswordFragment"
+        android:label="fragment_forget_password"
+        tools2:layout="@layout/fragment_forget_password" >
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 </navigation>

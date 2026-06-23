@@ -239,7 +239,6 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvDropoff3"
-                    app:layout_endToEndOf="parent"
                     tools:listitem="@layout/item_dropoff" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
