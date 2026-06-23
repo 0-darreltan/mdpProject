@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             when (destination.id) {
-                R.id.loginFragment, R.id.registerFragment -> {
+                R.id.loginFragment, R.id.registerFragment, R.id.forgetPasswordFragment -> {
                     supportActionBar?.hide()
                     binding.toolbar.visibility = View.GONE
                     bottomNav.visibility = View.GONE
