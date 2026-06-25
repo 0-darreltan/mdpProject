@@ -27,6 +27,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders["MAPS_API_KEY"] = "AIzaSyBti0Ld8YNFF9AuRs-BelMrzwuEFiaDSsg"
     }
 
     buildTypes {
@@ -88,6 +90,13 @@ dependencies {
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.logging)
+
+    // Image Cloudinary
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // Google Maps
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.2.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

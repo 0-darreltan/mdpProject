@@ -12,4 +12,16 @@
     </style>
 
     <style name="Theme.ReTech" parent="Base.Theme.ReTech" />
+
+    <style name="RoundedTopCornersImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="CustomPopupMenu" parent="Widget.MaterialComponents.PopupMenu">
+        <item name="android:popupBackground">@drawable/bg_popup_rounded</item>
+    </style>
 </resources>

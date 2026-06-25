@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.retech.R
 import com.example.retech.databaseViewModel.UserViewModel
 import com.example.retech.databinding.FragmentLoginBinding
+import com.example.retech.utils.SessionManager
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import kotlinx.coroutines.launch
@@ -23,6 +24,8 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var sessionManager: SessionManager
 
     private val userViewModel: UserViewModel by viewModels()
 
@@ -38,6 +41,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sessionManager = SessionManager(requireContext())
         setupObservers()
 
         binding.tvLogin4.setOnClickListener {
@@ -68,7 +72,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun setupObservers() {
         userViewModel.authResult.observe(viewLifecycleOwner) { response ->
             if (response != null) {
-                Toast.makeText(context, "Login Berhasil! Selamat datang ${response.user?.name}", Toast.LENGTH_SHORT).show()
+                val user = response.user
+                if (user != null) {
+                    sessionManager.saveSession(
+                        user._id ?: "",
+                        user.name ?: "",
+                        user.email ?: "",
+                    )
+                }
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         }

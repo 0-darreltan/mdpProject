@@ -55,7 +55,7 @@ const sampleLocations = [
   },
   {
     name: "Drop Box Sampah Elektronik - Kampus Sukolilo",
-    address: "Keputih, Kec. Sukolilo, Surabaya (Dekat Halte Bus Kampus)",
+    address: "Keputih, Kec. Sukolilo, Surabaya",
     accepted_items: [
       "Baterai",
       "Powerbank",
@@ -71,7 +71,6 @@ const sampleLocations = [
     image_url:
       "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480370/sukolilo_uqtqys.jpg",
   },
-  // --------------------------------------------------
   {
     name: "Urban Republic - Galaxy Mall 3",
     address:
@@ -87,7 +86,7 @@ const sampleLocations = [
     latitude: -7.2767005,
     longitude: 112.7806097,
     image_url:
-      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480370/sukolilo_uqtqys.jpg",
+      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1782379778/Urban_GM_wpdk9s.jpg",
   },
   {
     name: "Urban Republic - Tunjungan Plaza 4",
@@ -104,7 +103,7 @@ const sampleLocations = [
     latitude: -7.2614307,
     longitude: 112.7385462,
     image_url:
-      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480370/sukolilo_uqtqys.jpg",
+      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1782379734/Urban_TP_rqlo7y.webp",
   },
   {
     name: "Urban Republic - Pakuwon City Mall 3",
@@ -121,7 +120,7 @@ const sampleLocations = [
     latitude: -7.2766592,
     longitude: 112.8061885,
     image_url:
-      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480370/sukolilo_uqtqys.jpg",
+      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1782379660/Urban_PCM_yzgdla.jpg",
   },
   {
     name: "Erafone - Megastore Galaxy Mall 3",
@@ -132,7 +131,7 @@ const sampleLocations = [
     latitude: -7.2766902,
     longitude: 112.7803599,
     image_url:
-      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480370/sukolilo_uqtqys.jpg",
+      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1782379580/Erafone_GM_d60fw6.jpg",
   },
   {
     name: "Erafone - Plaza Marina Surabaya",
@@ -143,7 +142,7 @@ const sampleLocations = [
     latitude: -7.3156099,
     longitude: 112.7486026,
     image_url:
-      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480370/sukolilo_uqtqys.jpg",
+      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1782379511/Erafone_PlazaMarina_dcnxmj.jpg",
   },
   {
     name: "Balai Kota Surabaya",
@@ -157,7 +156,7 @@ const sampleLocations = [
     latitude: -7.2592031,
     longitude: 112.7469525,
     image_url:
-      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480370/sukolilo_uqtqys.jpg",
+      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1782379461/BalaiKota_Surabaya_cucks7.webp",
   },
   {
     name: "Dinas Lingkungan Hidup Provinsi Jawa Timur",
@@ -171,7 +170,7 @@ const sampleLocations = [
     latitude: -7.3461881,
     longitude: 112.7342374,
     image_url:
-      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480370/sukolilo_uqtqys.jpg",
+      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1782379407/DLH_Surabaya_grmmg8.jpg",
   },
   {
     name: "Bank Sampah Induk Surabaya",
@@ -185,7 +184,7 @@ const sampleLocations = [
     latitude: -7.2782297,
     longitude: 112.7629409,
     image_url:
-      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1780480370/sukolilo_uqtqys.jpg",
+      "https://res.cloudinary.com/ddcsuysdl/image/upload/v1782379320/images_veyr94.jpg",
   },
 ];
 
