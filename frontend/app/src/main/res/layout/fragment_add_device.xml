@@ -1,14 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F4F4F4"
     tools:context=".ui.inventory.AddDeviceFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <!-- Header Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="24dp">
+
+                <!-- NEW ENTRY Badge -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge_new_entry"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:letterSpacing="0.05"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="5dp"
+                    android:text="NEW ENTRY"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Register a\nsustainable\nasset."
+                    android:textColor="#1F2937"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4dp" />
+
+                <!-- Description -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Adding your devices helps EcoCycle track the circularity and lifecycle of your hardware assets, promoting better stewardship."
+                    android:textColor="#6B7280"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="4dp" />
+
+            </LinearLayout>
+
+            <!-- Form Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/bg_form_card"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Device Name Label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Device Name"
+                    android:textColor="#374151"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- Device Name Input -->
+                <EditText
+                    android:id="@+id/etDeviceName"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_input_field"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:hint="e.g. MacBook Pro 2023"
+                    android:inputType="text"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="#1F2937"
+                    android:textColorHint="#9CA3AF"
+                    android:textSize="14sp" />
+
+                <!-- Category Label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Category"
+                    android:textColor="#374151"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- Category Chips Row 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/chipLaptop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_chip_selector"
+                        android:fontFamily="@font/plus_jakarta_sans_medium"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="Laptop"
+                        android:textColor="#1F2937"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/chipSmartphone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_chip_selector"
+                        android:fontFamily="@font/plus_jakarta_sans_medium"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="Smartphone"
+                        android:textColor="#1F2937"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <!-- Category Chips Row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/chipTablet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_chip_selector"
+                        android:fontFamily="@font/plus_jakarta_sans_medium"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="Tablet"
+                        android:textColor="#1F2937"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/chipMonitor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_chip_selector"
+                        android:fontFamily="@font/plus_jakarta_sans_medium"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="Monitor"
+                        android:textColor="#1F2937"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <!-- Category Chips Row 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/chipPeripheral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_chip_selector"
+                        android:fontFamily="@font/plus_jakarta_sans_medium"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="Peripheral"
+                        android:textColor="#1F2937"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <!-- Purchase Year Label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="Purchase Year"
+                    android:textColor="#374151"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- Purchase Year Spinner -->
+                <Spinner
+                    android:id="@+id/spinnerYear"
+                    android:layout_width="180dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_input_field"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:paddingHorizontal="16dp" />
+
+                <!-- Info Tip Card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_info_tip"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@android:drawable/ic_dialog_info"
+                        app:tint="#0F9D58" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/plus_jakarta_sans_medium"
+                        android:text="Correct categorization ensures accurate circularity scores for your local plant reports."
+                        android:textColor="#374151"
+                        android:textSize="12sp"
+                        android:lineSpacingExtra="3dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Save Device Button -->
+            <Button
+                android:id="@+id/btnSaveDevice"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/plus_jakarta_sans_medium"
+                android:text="💾  Save Device"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:cornerRadius="100dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </FrameLayout>

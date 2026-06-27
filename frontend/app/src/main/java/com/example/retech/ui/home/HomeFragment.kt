@@ -9,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.retech.R
+import com.example.retech.databaseViewModel.DeviceViewModel
 import com.example.retech.databinding.FragmentHomeBinding
 import com.example.retech.utils.SessionManager
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -31,6 +33,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
     private val binding get() = _binding!!
 
     private lateinit var sessionManager: SessionManager
+    private lateinit var deviceViewModel: DeviceViewModel
     private var mInterfaceMap: GoogleMap? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -55,6 +58,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
 
         sessionManager = SessionManager(requireContext())
+        deviceViewModel = ViewModelProvider(requireActivity())[DeviceViewModel::class.java]
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.googleMapHome) as SupportMapFragment
@@ -70,6 +74,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
             .build()
 
         binding.tvHome1.text = "Welcome Back, $userName."
+
+        // Fetch user devices count for Home screen
+        val userId = sessionManager.getUserId() ?: ""
+        deviceViewModel.setUserId(userId)
+        deviceViewModel.totalDeviceCount.observe(viewLifecycleOwner) { count ->
+            binding.tvHome4.text = "$count Devices"
+        }
 
         binding.tvGlobalMap.setOnClickListener {
             findNavController().navigate(
@@ -88,6 +99,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
         }
 
         binding.btnAddDeviceHome.setOnClickListener {
+            // Gunakan R.id.addDeviceFragment secara langsung jika action_homeFragment_to_addDeviceFragment tidak ada
+            findNavController().navigate(
+                R.id.addDeviceFragment,
+                null,
+                navOptionsToRight
+            )
         }
     }
 

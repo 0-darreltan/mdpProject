@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="#FFFFFF">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Device Icon Container -->
+        <FrameLayout
+            android:id="@+id/flDeviceIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_device_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivDeviceIcon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_menu_manage"
+                app:tint="#0F9D58" />
+
+        </FrameLayout>
+
+        <!-- Status Badge -->
+        <TextView
+            android:id="@+id/tvDeviceBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_badge_high_value"
+            android:fontFamily="@font/plus_jakarta_sans_medium"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:text="High Value"
+            android:textColor="#0F9D58"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Device Name -->
+        <TextView
+            android:id="@+id/tvDeviceName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/plus_jakarta_sans_medium"
+            android:text="MacBook Pro 16&quot;"
+            android:textColor="#1F2937"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/flDeviceIcon" />
+
+        <!-- Category & Purchase Year -->
+        <TextView
+            android:id="@+id/tvDeviceCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/plus_jakarta_sans_medium"
+            android:text="Laptop"
+            android:textColor="#9CA3AF"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeviceName" />
+
+        <TextView
+            android:id="@+id/tvDeviceDot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:fontFamily="@font/plus_jakarta_sans_medium"
+            android:text="•"
+            android:textColor="#9CA3AF"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tvDeviceCategory"
+            app:layout_constraintStart_toEndOf="@+id/tvDeviceCategory" />
+
+        <TextView
+            android:id="@+id/tvDeviceYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:fontFamily="@font/plus_jakarta_sans_medium"
+            android:text="Purchased 2021"
+            android:textColor="#9CA3AF"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tvDeviceDot"
+            app:layout_constraintStart_toEndOf="@+id/tvDeviceDot" />
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/dividerDevice"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="#F3F4F6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeviceCategory" />
+
+        <!-- Condition Label -->
+        <TextView
+            android:id="@+id/tvConditionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/plus_jakarta_sans_medium"
+            android:text="Condition: Good"
+            android:textColor="#0F9D58"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dividerDevice" />
+
+        <!-- 3 dots menu -->
+        <ImageView
+            android:id="@+id/ivDeviceMenu"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Menu"
+            android:src="@android:drawable/ic_menu_more"
+            app:tint="#9CA3AF"
+            app:layout_constraintBottom_toBottomOf="@+id/tvConditionLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvConditionLabel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
