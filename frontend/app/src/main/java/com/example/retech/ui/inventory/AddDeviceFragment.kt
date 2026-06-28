@@ -26,6 +26,8 @@ class AddDeviceFragment : Fragment() {
 
     private var selectedCategory: String = ""
     private var selectedYear: Int = Calendar.getInstance().get(Calendar.YEAR)
+    
+    private var deviceToEdit: Device? = null
 
     private val categoryChips = mutableListOf<TextView>()
 
@@ -43,10 +45,36 @@ class AddDeviceFragment : Fragment() {
         sessionManager = SessionManager(requireContext())
         deviceViewModel = ViewModelProvider(requireActivity())[DeviceViewModel::class.java]
 
+        deviceToEdit = arguments?.getSerializable("device_to_edit") as? Device
+
         setupCategoryChips()
         setupYearSpinner()
+        
+        if (deviceToEdit != null) {
+            prefillDeviceData()
+        }
+        
         setupSaveButton()
         observeViewModel()
+    }
+    
+    private fun prefillDeviceData() {
+        binding.etDeviceName.setText(deviceToEdit!!.name)
+        
+        val categories = listOf("Laptop", "Smartphone", "Tablet", "Monitor", "Peripheral")
+        val index = categories.indexOf(deviceToEdit!!.category)
+        if (index >= 0) {
+            selectCategory(index, deviceToEdit!!.category)
+        }
+
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        val years = (currentYear downTo currentYear - 15).map { it.toString() }
+        val yearIndex = years.indexOf(deviceToEdit!!.purchaseYear.toString())
+        if (yearIndex >= 0) {
+            binding.spinnerYear.setSelection(yearIndex)
+        }
+
+        binding.btnSaveDevice.text = "Update Device"
     }
 
     private fun setupCategoryChips() {
@@ -70,8 +98,10 @@ class AddDeviceFragment : Fragment() {
             }
         }
 
-        // Select "Laptop" by default
-        selectCategory(0, "Laptop")
+        // Select "Laptop" by default if not editing
+        if (deviceToEdit == null) {
+            selectCategory(0, "Laptop")
+        }
     }
 
     private fun selectCategory(selectedIndex: Int, category: String) {
@@ -146,25 +176,37 @@ class AddDeviceFragment : Fragment() {
                 else -> "Mint"
             }
 
-            // Buat object Device dan simpan ke Room
-            val device = Device(
-                userId = userId,
-                name = deviceName,
-                category = selectedCategory,
-                purchaseYear = selectedYear,
-                condition = condition,
-                badge = badge
-            )
-
-            deviceViewModel.insertDevice(device)
+            if (deviceToEdit != null) {
+                // Update existing device
+                val updatedDevice = deviceToEdit!!.copy(
+                    name = deviceName,
+                    category = selectedCategory,
+                    purchaseYear = selectedYear,
+                    condition = condition,
+                    badge = badge
+                )
+                deviceViewModel.updateDevice(updatedDevice)
+            } else {
+                // Insert new device
+                val device = Device(
+                    userId = userId,
+                    name = deviceName,
+                    category = selectedCategory,
+                    purchaseYear = selectedYear,
+                    condition = condition,
+                    badge = badge
+                )
+                deviceViewModel.insertDevice(device)
+            }
         }
     }
 
     private fun observeViewModel() {
-        // Observe hasil insert
+        // Observe hasil insert atau update
         deviceViewModel.insertResult.observe(viewLifecycleOwner) { success ->
             if (success) {
-                Toast.makeText(requireContext(), "Device saved successfully!", Toast.LENGTH_SHORT).show()
+                val msg = if (deviceToEdit != null) "Device updated successfully!" else "Device saved successfully!"
+                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                 deviceViewModel.resetInsertResult()
                 findNavController().navigateUp()
             }

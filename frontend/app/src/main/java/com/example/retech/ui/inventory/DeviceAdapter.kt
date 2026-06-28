@@ -10,7 +10,9 @@ import com.example.retech.databaseModel.Device
 import com.example.retech.databinding.ItemDeviceBinding
 
 class DeviceAdapter(
-    private var deviceList: MutableList<Device> = mutableListOf()
+    private var deviceList: MutableList<Device> = mutableListOf(),
+    private val onEditClick: ((Device) -> Unit)? = null,
+    private val onDeleteClick: ((Device) -> Unit)? = null
 ) : RecyclerView.Adapter<DeviceAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemDeviceBinding) : RecyclerView.ViewHolder(binding.root)
@@ -98,6 +100,10 @@ class DeviceAdapter(
                 holder.binding.tvConditionLabel.setTextColor(0xFFE65100.toInt())
             }
         }
+
+        // Set click listeners for edit and delete
+        holder.binding.ivDeviceEdit.setOnClickListener { onEditClick?.invoke(device) }
+        holder.binding.ivDeviceDelete.setOnClickListener { onDeleteClick?.invoke(device) }
     }
 
     override fun getItemCount(): Int = deviceList.size
