@@ -67,11 +67,16 @@ class DeviceViewModel(application: Application) : AndroidViewModel(application) 
 
     // Update device
     fun updateDevice(device: Device) {
+        _isLoading.value = true
         viewModelScope.launch {
             try {
                 repository.updateDevice(device)
+                _insertResult.value = true
             } catch (e: Exception) {
                 _error.value = "Gagal mengupdate device: ${e.message}"
+                _insertResult.value = false
+            } finally {
+                _isLoading.value = false
             }
         }
     }

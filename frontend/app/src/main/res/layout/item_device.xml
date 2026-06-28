@@ -127,16 +127,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dividerDevice" />
 
-        <!-- 3 dots menu -->
+        <!-- Delete Icon -->
         <ImageView
-            android:id="@+id/ivDeviceMenu"
+            android:id="@+id/ivDeviceDelete"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:contentDescription="Menu"
-            android:src="@android:drawable/ic_menu_more"
-            app:tint="#9CA3AF"
+            android:contentDescription="Delete"
+            android:src="@android:drawable/ic_menu_delete"
+            app:tint="#D32F2F"
             app:layout_constraintBottom_toBottomOf="@+id/tvConditionLabel"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvConditionLabel" />
+
+        <!-- Edit Icon -->
+        <ImageView
+            android:id="@+id/ivDeviceEdit"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:contentDescription="Edit"
+            android:src="@android:drawable/ic_menu_edit"
+            app:tint="#1565C0"
+            app:layout_constraintBottom_toBottomOf="@+id/tvConditionLabel"
+            app:layout_constraintEnd_toStartOf="@+id/ivDeviceDelete"
             app:layout_constraintTop_toTopOf="@+id/tvConditionLabel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

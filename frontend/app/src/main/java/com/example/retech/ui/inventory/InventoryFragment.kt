@@ -67,7 +67,17 @@ class InventoryFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        deviceAdapter = DeviceAdapter()
+        deviceAdapter = DeviceAdapter(
+            onEditClick = { device ->
+                val bundle = Bundle().apply {
+                    putSerializable("device_to_edit", device)
+                }
+                findNavController().navigate(R.id.action_inventoryFragment_to_addDeviceFragment, bundle)
+            },
+            onDeleteClick = { device ->
+                deviceViewModel.deleteDevice(device)
+            }
+        )
         binding.rvDevices.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = deviceAdapter
