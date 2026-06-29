@@ -12,60 +12,6 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true" >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/navbarDropoffDetail"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#F4F4F4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:id="@+id/linearLayoutDropoffDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"
-                android:layout_marginStart="16dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/ivNavbarDropoffDetail"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="-10dp"
-                    android:layout_marginTop="-9dp"
-                    android:layout_marginEnd="-10dp"
-                    android:layout_marginBottom="-9dp"
-                    android:src="@mipmap/ic_launcher_foreground" />
-
-                <TextView
-                    android:id="@+id/tvNavbarDropoffDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="ReTech"
-                    android:textColor="#0F9D58"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/ivProfileDropoffDetail"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="24dp"
-                android:src="@android:drawable/ic_menu_view"
-                app:layout_constraintBottom_toBottomOf="@+id/linearLayoutDropoffDetail"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/linearLayoutDropoffDetail" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <ScrollView
             android:id="@+id/svContentDropoffDetail"
             android:layout_width="match_parent"
@@ -74,8 +20,7 @@
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/navbarDropoffDetail">
+            app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clContentDropoffDetail"
@@ -92,19 +37,31 @@
                     android:layout_width="0dp"
                     android:layout_height="200dp"
                     app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools2:layout_editor_absoluteY="878dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/cardDetailOpen">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardImageDropoff"
                     android:layout_width="0dp"
                     android:layout_height="200dp"
+                    android:layout_marginBottom="16dp"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="2dp"
+                    app:layout_constraintBottom_toTopOf="@+id/cardInfoDetail"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools2:layout_editor_absoluteY="16dp">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clImageDropoff"
@@ -126,48 +83,165 @@
                             android:id="@+id/tvOpenStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
                             android:layout_marginStart="12dp"
-                            android:text="Open Now"
-                            android:textColor="@android:color/white"
+                            android:layout_marginTop="12dp"
+                            android:drawablePadding="6dp"
                             android:paddingHorizontal="12dp"
                             android:paddingVertical="6dp"
+                            android:text="Open Now"
+                            android:textColor="@android:color/white"
                             android:textSize="12sp"
                             android:textStyle="bold"
-                            android:drawablePadding="6dp"
                             app:drawableTint="@android:color/white"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardInfoDetail"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
                     app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/tvDropoffDetail1"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools2:layout_editor_absoluteY="250dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/cardImageDropoff">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/tvNamaDropoffDetail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="@font/plus_jakarta_sans_medium"
+                            android:text="Nama Dropoff"
+                            android:textColor="#1F2937"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/tvAlamatDropoffDetail"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <TextView
+                            android:id="@+id/tvAlamatDropoffDetail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="@font/plus_jakarta_sans_medium"
+                            android:text="Alamat Dropoff"
+                            android:textColor="#1F2937"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toTopOf="@+id/button"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvNamaDropoffDetail" />
+
+                        <Button
+                            android:id="@+id/button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/plus_jakarta_sans_medium"
+                            android:text="↳ Get Location"
+                            app:cornerRadius="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvAlamatDropoffDetail" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/tvDropoffDetail1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:text="Accepted Recyclables"
+                    android:textColor="#1F2937"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/rvAcceptedDetail"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools2:layout_editor_absoluteY="487dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/cardInfoDetail" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardDetailOpen"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/cardMapDetail"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools2:layout_editor_absoluteY="592dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/rvAcceptedDetail">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/tvOpeningDropoffDetail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="@font/plus_jakarta_sans_medium"
+                            android:text="⏳ Opening Hours"
+                            android:textColor="#1F2937"
+                            android:textSize="24sp"
+                            app:layout_constraintBottom_toTopOf="@+id/tvHoursDropoffDetail"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <TextView
+                            android:id="@+id/tvHoursDropoffDetail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/plus_jakarta_sans_medium"
+                            android:text="Jadwal Dropoff"
+                            android:textColor="#0F9D58"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvOpeningDropoffDetail" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAcceptedDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintBottom_toTopOf="@+id/cardDetailOpen"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDropoffDetail1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

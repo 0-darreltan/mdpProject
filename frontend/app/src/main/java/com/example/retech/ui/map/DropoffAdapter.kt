@@ -11,8 +11,10 @@ import com.example.retech.databinding.ItemDropoffBinding
 import com.google.android.gms.maps.model.LatLng
 import java.util.Locale
 
-class DropoffAdapter(private var listDropoff: List<Locations>) :
-    RecyclerView.Adapter<DropoffAdapter.ViewHolder>() {
+class DropoffAdapter(
+    private var listDropoff: List<Locations>,
+    private val onItemClick: (Locations) -> Unit
+) : RecyclerView.Adapter<DropoffAdapter.ViewHolder>() {
 
     private var userLatLng: LatLng? = null
 
@@ -40,6 +42,8 @@ class DropoffAdapter(private var listDropoff: List<Locations>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = listDropoff[position]
+
+        holder.itemView.setOnClickListener { onItemClick(data) }
 
         holder.binding.tvItemName.text = data.name
         holder.binding.tvItemAddress.text = data.address

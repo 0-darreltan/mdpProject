@@ -18,6 +18,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retech.R
 import com.example.retech.data.remote.RetrofitClient
@@ -172,7 +173,12 @@ class DropoffFragment : Fragment(), OnMapReadyCallback {
                 val response = apiService.getAllLocations()
                 if (response.isSuccessful && response.body() != null) {
                     fullLocationList = response.body()!!
-                    adapter = DropoffAdapter(fullLocationList)
+                    adapter = DropoffAdapter(fullLocationList) { location ->
+                        val bundle = Bundle().apply {
+                            putSerializable("locationData", location)
+                        }
+                        findNavController().navigate(R.id.action_dropoffFragment_to_dropoffDetailFragment, bundle)
+                    }
                     binding.rvNearbyDropoff.adapter = adapter
                     applyFiltersAndSort()
                 }

@@ -84,6 +84,7 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.recyclerview)
     kapt(libs.androidx.room.compiler)
 
     // Retrofit & Networking

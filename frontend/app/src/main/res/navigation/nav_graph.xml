@@ -99,8 +99,8 @@
         android:label="Center Detail"
         tools:layout="@layout/fragment_dropoff_detail">
         <argument
-            android:name="locationId"
-            app:argType="string" />
+            android:name="locationData"
+            app:argType="com.example.retech.databaseModel.Locations" />
     </fragment>
 
     <fragment
