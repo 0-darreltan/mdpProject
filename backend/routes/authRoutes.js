@@ -4,10 +4,14 @@ const {
   register,
   login,
   loginWithGoogle,
+  forgotPassword,
+  resetPassword,
 } = require("../controllers/authController");
 
 router.post("/register", register);
 router.post("/login", login);
 router.post("/google", loginWithGoogle);
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
 
 module.exports = router;

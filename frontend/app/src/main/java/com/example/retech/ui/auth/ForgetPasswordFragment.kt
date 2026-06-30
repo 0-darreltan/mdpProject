@@ -34,6 +34,14 @@ class ForgetPasswordFragment : Fragment(R.layout.fragment_forget_password) {
             binding.btnSendForget.text = if (isLoading) "Sending..." else "Send Reset Link"
         }
 
+        // Observer untuk status sukses forget password
+        userViewModel.forgotPasswordSuccess.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                // Berhasil: Langsung direct ke NewPasswordFragment
+                findNavController().navigate(R.id.action_forgetPasswordFragment_to_newPasswordFragment)
+            }
+        }
+
         userViewModel.error.observe(viewLifecycleOwner) { message ->
             if (message != null) {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()

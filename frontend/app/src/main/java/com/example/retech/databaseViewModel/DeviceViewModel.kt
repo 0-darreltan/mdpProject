@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class DeviceViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: DeviceRepository
+    private val repository: DeviceRepository = DeviceRepository(AppDatabase.getDatabase(application).deviceDao())
     private val _currentUserId = MutableLiveData<String>()
 
     // LiveData yang otomatis berubah ketika userId berubah
@@ -38,11 +38,6 @@ class DeviceViewModel(application: Application) : AndroidViewModel(application) 
 
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> get() = _error
-
-    init {
-        val deviceDao = AppDatabase.getDatabase(application).deviceDao()
-        repository = DeviceRepository(deviceDao)
-    }
 
     // Set user ID yang sedang login, agar LiveData devices di-filter per user
     fun setUserId(userId: String) {
