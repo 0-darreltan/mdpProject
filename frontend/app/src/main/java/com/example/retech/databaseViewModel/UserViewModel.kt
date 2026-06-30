@@ -69,6 +69,7 @@ class UserViewModel : ViewModel() {
 
     fun loginWithGoogle(name: String, email: String) {
         _isLoading.value = true
+        // Set value langsung tanpa memanggil Retrofit
         val googleUser = Users(_id = "google_${email}", name = name, email = email, auth_provider = "google")
         val response = AuthResponse(success = true, message = "Login Google Sukses", token = "local_token", user = googleUser)
         _authResult.value = response
