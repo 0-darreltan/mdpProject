@@ -79,4 +79,23 @@ class UserViewModel : ViewModel() {
         _authResult.value = response
         _isLoading.value = false
     }
+
+    fun forgotPassword(email: String) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                val body = mapOf("email" to email)
+                val response = RetrofitClient.userService.forgotPassword(body)
+                if (response.isSuccessful) {
+                    _error.value = "Link reset telah dikirim ke email Anda"
+                } else {
+                    _error.value = "Gagal: Email tidak terdaftar"
+                }
+            } catch (e: Exception) {
+                _error.value = "Koneksi Gagal: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
 }

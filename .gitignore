@@ -47,3 +47,5 @@ frontend/.idea/
 # Keystore files (Opsional, tapi sangat disarankan agar kunci aplikasimu tidak bocor)
 *.jks
 *.keystore
+
+backend/.env/
