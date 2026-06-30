@@ -43,11 +43,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardDetailOpen">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/mapDropoffDetail"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_height="match_parent" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -144,14 +144,14 @@
                             android:text="Alamat Dropoff"
                             android:textColor="#1F2937"
                             android:textSize="16sp"
-                            app:layout_constraintBottom_toTopOf="@+id/button"
+                            app:layout_constraintBottom_toTopOf="@+id/btnLocationDetail"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tvNamaDropoffDetail" />
 
                         <Button
-                            android:id="@+id/button"
+                            android:id="@+id/btnLocationDetail"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/plus_jakarta_sans_medium"
@@ -198,7 +198,7 @@
                         android:paddingStart="20dp"
                         android:paddingTop="10dp"
                         android:paddingEnd="20dp"
-                        android:paddingBottom="10dp">
+                        android:paddingBottom="20dp">
 
                         <TextView
                             android:id="@+id/tvOpeningDropoffDetail"
@@ -216,16 +216,14 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_chainStyle="packed" />
 
-                        <TextView
-                            android:id="@+id/tvHoursDropoffDetail"
+                        <LinearLayout
+                            android:id="@+id/llHoursContainer"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/plus_jakarta_sans_medium"
-                            android:text="Jadwal Dropoff"
-                            android:textColor="#0F9D58"
+                            android:layout_marginTop="8dp"
+                            android:orientation="vertical"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tvOpeningDropoffDetail" />
                     </androidx.constraintlayout.widget.ConstraintLayout>

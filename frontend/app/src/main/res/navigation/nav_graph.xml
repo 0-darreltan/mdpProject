@@ -96,7 +96,7 @@
     <fragment
         android:id="@+id/dropoffDetailFragment"
         android:name="com.example.retech.ui.map.DropoffDetailFragment"
-        android:label="Center Detail"
+        android:label="Dropoff Detail"
         tools:layout="@layout/fragment_dropoff_detail">
         <argument
             android:name="locationData"
