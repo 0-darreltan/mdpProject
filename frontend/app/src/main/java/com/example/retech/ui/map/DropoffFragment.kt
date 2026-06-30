@@ -81,6 +81,11 @@ class DropoffFragment : Fragment(), OnMapReadyCallback {
         setupSearch()
 
         getDropoffDataFromBackend()
+        
+        // Navigasi ke halaman profile saat icon profile ditekan
+        binding.cvProfileDropoff.setOnClickListener {
+            findNavController().navigate(R.id.action_dropoffFragment_to_profileFragment)
+        }
     }
 
     private fun setupSearch() {
