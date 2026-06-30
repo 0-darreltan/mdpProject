@@ -15,10 +15,4 @@ interface UserApiService {
 
     @POST("api/auth/google")
     suspend fun loginWithGoogle(@Body googleData: Map<String, String>): Response<AuthResponse>
-
-    @POST("api/auth/forgot-password")
-    suspend fun forgotPassword(@Body body: Map<String, String>): Response<AuthResponse>
-
-    @POST("api/auth/reset-password")
-    suspend fun resetPassword(@Body body: Map<String, String>): Response<AuthResponse>
 }
