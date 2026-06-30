@@ -1,6 +1,7 @@
 package com.example.retech.data.remote
 
 import com.example.retech.data.remote.api.ApiService
+import com.example.retech.databaseApi.GuideApiService
 import com.example.retech.databaseApi.LocationApiService
 import com.example.retech.databaseApi.UserApiService
 import retrofit2.Retrofit
@@ -27,5 +28,9 @@ object RetrofitClient {
 
     val locationService: LocationApiService by lazy {
         retrofit.create(LocationApiService::class.java)
+    }
+
+    val guideService: GuideApiService by lazy {
+        retrofit.create(GuideApiService::class.java)
     }
 }

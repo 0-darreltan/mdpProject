@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 
 const User = require("./models/User");
 const DropoffLocation = require("./models/DropoffLocation");
+const Guide = require("./models/Guide");
 
 const sampleUsers = [
   {
@@ -188,6 +189,119 @@ const sampleLocations = [
   },
 ];
 
+const sampleGuides = [
+  {
+    name: "Membersihkan Port Pengisian Daya",
+    category: "Smartphone",
+    summary:
+      "Panduan membersihkan port pengisian daya smartphone dengan aman agar koneksi charger tetap optimal.",
+    image_url:
+      "https://res.cloudinary.com/your-cloud/image/upload/smartphone-port-cleaning.jpg",
+    file_url:
+      "https://res.cloudinary.com/your-cloud/raw/upload/smartphone-port-cleaning.pdf",
+  },
+  {
+    name: "Perawatan Layar & Anti Gores",
+    category: "Smartphone",
+    summary:
+      "Cara merawat layar smartphone agar tetap bersih dan terhindar dari goresan.",
+    image_url:
+      "https://res.cloudinary.com/your-cloud/image/upload/smartphone-screen-care.jpg",
+    file_url:
+      "https://res.cloudinary.com/your-cloud/raw/upload/smartphone-screen-care.pdf",
+  },
+  {
+    name: "Perawatan Sensor Optik",
+    category: "Smartwatch",
+    summary:
+      "Panduan membersihkan sensor optik smartwatch agar pembacaan detak jantung tetap akurat.",
+    image_url:
+      "https://res.cloudinary.com/your-cloud/image/upload/smartwatch-sensor.jpg",
+    file_url:
+      "https://res.cloudinary.com/your-cloud/raw/upload/smartwatch-sensor.pdf",
+  },
+  {
+    name: "Optimalisasi Penyimpanan Baterai",
+    category: "Tablet",
+    summary:
+      "Tips menyimpan tablet dengan kondisi baterai yang ideal untuk memperpanjang usia perangkat.",
+    image_url:
+      "https://res.cloudinary.com/your-cloud/image/upload/tablet-battery.jpg",
+    file_url:
+      "https://res.cloudinary.com/your-cloud/raw/upload/tablet-battery.pdf",
+  },
+  {
+    name: "Pembersihan Mesh Audio",
+    category: "TWS / Earbuds",
+    summary:
+      "Cara membersihkan mesh audio TWS agar kualitas suara tetap jernih.",
+    image_url:
+      "https://res.cloudinary.com/your-cloud/image/upload/tws-cleaning.jpg",
+    file_url:
+      "https://res.cloudinary.com/your-cloud/raw/upload/tws-cleaning.pdf",
+  },
+  {
+    name: "Pembersihan Lensa & Sensor",
+    category: "Kamera Digital",
+    summary:
+      "Panduan membersihkan lensa dan sensor kamera digital dengan aman.",
+    image_url:
+      "https://res.cloudinary.com/your-cloud/image/upload/camera-lens.jpg",
+    file_url:
+      "https://res.cloudinary.com/your-cloud/raw/upload/camera-lens.pdf",
+  },
+  {
+    name: "Perawatan Sistem Pendingin",
+    category: "Konsol Game",
+    summary:
+      "Tips menjaga sistem pendingin konsol game agar tidak mudah overheat.",
+    image_url:
+      "https://res.cloudinary.com/your-cloud/image/upload/game-console.jpg",
+    file_url:
+      "https://res.cloudinary.com/your-cloud/raw/upload/game-console.pdf",
+  },
+  {
+    name: "Perawatan Panel LED/OLED",
+    category: "Smart TV",
+    summary:
+      "Cara merawat panel LED/OLED agar kualitas tampilan tetap optimal.",
+    image_url:
+      "https://res.cloudinary.com/your-cloud/image/upload/smart-tv.jpg",
+    file_url:
+      "https://res.cloudinary.com/your-cloud/raw/upload/smart-tv.pdf",
+  },
+  {
+    name: "Mencegah Tinta Kering",
+    category: "Printer",
+    summary:
+      "Panduan mencegah tinta printer mengering dan menjaga kualitas cetak.",
+    image_url:
+      "https://res.cloudinary.com/your-cloud/image/upload/printer.jpg",
+    file_url:
+      "https://res.cloudinary.com/your-cloud/raw/upload/printer.pdf",
+  },
+  {
+    name: "Optimalisasi Kinerja Jaringan",
+    category: "Router Wi-Fi",
+    summary:
+      "Tips mengoptimalkan performa router Wi-Fi agar koneksi tetap stabil.",
+    image_url:
+      "https://res.cloudinary.com/your-cloud/image/upload/router.jpg",
+    file_url:
+      "https://res.cloudinary.com/your-cloud/raw/upload/router.pdf",
+  },
+  {
+    name: "Menjaga Kesehatan Sel Baterai",
+    category: "Power Bank",
+    summary:
+      "Panduan merawat power bank agar baterai lebih awet dan aman digunakan.",
+    image_url:
+      "https://res.cloudinary.com/your-cloud/image/upload/powerbank.jpg",
+    file_url:
+      "https://res.cloudinary.com/your-cloud/raw/upload/powerbank.pdf",
+  },
+];
+
 const seedData = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
@@ -213,6 +327,9 @@ const seedData = async () => {
 
     await DropoffLocation.insertMany(sampleLocations);
     console.log("Sample locations (Array of Objects) seeded successfully!");
+
+    await Guide.insertMany(sampleGuides);
+    console.log("Sample guides seeded successfully!");
 
     mongoose.connection.close();
     console.log("Database connection closed. Seeding Done!");
