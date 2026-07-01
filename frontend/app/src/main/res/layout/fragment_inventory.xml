@@ -48,21 +48,30 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-light"
-                    android:text="EcoCycle"
+                    android:text="ReTech"
                     android:textColor="#0F9D58"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/ivProfileInventory"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvProfileInventory"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="24dp"
-                android:src="@mipmap/ic_launcher"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/llLogoInventory"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/llLogoInventory" />
+                app:layout_constraintTop_toTopOf="@+id/llLogoInventory">
+
+                <ImageView
+                    android:id="@+id/ivProfileInventory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher" />
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -59,12 +59,27 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    fun loginWithGoogle(name: String, email: String) {
+    fun loginWithGoogle(name: String, email: String, profilePicture: String = "") {
         _isLoading.value = true
-        val googleUser = Users(_id = "google_${email}", name = name, email = email, auth_provider = "google")
-        val response = AuthResponse(success = true, message = "Login Google Sukses", token = "local_token", user = googleUser)
-        _authResult.value = response
-        _isLoading.value = false
+        viewModelScope.launch {
+            try {
+                val data = mapOf(
+                    "name" to name,
+                    "email" to email,
+                    "profile_picture" to profilePicture
+                )
+                val response = RetrofitClient.userService.loginWithGoogle(data)
+                if (response.isSuccessful) {
+                    _authResult.value = response.body()
+                } else {
+                    _error.value = parseError(response.errorBody()?.string()) ?: "Login Google Failed"
+                }
+            } catch (e: Exception) {
+                _error.value = "Error: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
     }
 
     private val _forgotPasswordSuccess = MutableLiveData<Boolean>()
@@ -145,6 +160,37 @@ class UserViewModel : ViewModel() {
     
     fun resetChangePasswordState() {
         _changePasswordSuccess.value = null
+    }
+
+    private val _updateProfilePictureSuccess = MutableLiveData<Boolean?>()
+    val updateProfilePictureSuccess: LiveData<Boolean?> get() = _updateProfilePictureSuccess
+
+    fun updateProfilePicture(email: String, base64Image: String) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                val data = mapOf(
+                    "email" to email,
+                    "profile_picture" to base64Image
+                )
+                val response = RetrofitClient.userService.updateProfilePicture(data)
+                if (response.isSuccessful) {
+                    _updateProfilePictureSuccess.value = true
+                } else {
+                    _error.value = parseError(response.errorBody()?.string()) ?: "Failed to update picture"
+                    _updateProfilePictureSuccess.value = false
+                }
+            } catch (e: Exception) {
+                _error.value = "Error: ${e.message}"
+                _updateProfilePictureSuccess.value = false
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun resetUpdateProfilePictureState() {
+        _updateProfilePictureSuccess.value = null
     }
 
     private fun parseError(errorBody: String?): String? {

@@ -24,4 +24,7 @@ interface UserApiService {
 
     @POST("api/auth/change-password")
     suspend fun changePassword(@Body changeData: Map<String, String>): Response<AuthResponse>
+
+    @POST("api/auth/update-profile-picture")
+    suspend fun updateProfilePicture(@Body data: Map<String, String>): Response<AuthResponse>
 }

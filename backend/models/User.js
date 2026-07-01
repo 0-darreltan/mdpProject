@@ -17,10 +17,19 @@ const UserSchema = new mongoose.Schema({
       return this.auth_provider === "manual"; // Hanya wajib jika daftar manual via email
     },
   },
+  role: {
+    type: String,
+    default: "user",
+    enum: ["user", "admin"],
+  },
   auth_provider: {
     type: String,
     default: "manual",
     enum: ["manual", "google"],
+  },
+  profile_picture: {
+    type: String,
+    default: "", // Default kosong untuk manual login
   },
   createdAt: {
     type: Date,

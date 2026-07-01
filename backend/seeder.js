@@ -11,13 +11,17 @@ const sampleUsers = [
     name: "Budi",
     email: "budi@gmail.com",
     password: "password123",
+    role: "admin",
     auth_provider: "manual",
+    profile_picture: "",
   },
   {
     name: "Abdul",
     email: "abdul@gmail.com",
     password: "password123",
+    role: "admin",
     auth_provider: "manual",
+    profile_picture: "",
   },
 ];
 

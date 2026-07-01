@@ -7,6 +7,7 @@ const {
   changePassword,
   forgotPassword,
   resetPassword,
+  updateProfilePicture,
 } = require("../controllers/authController");
 
 router.post("/register", register);
@@ -15,5 +16,6 @@ router.post("/google", loginWithGoogle);
 router.post("/change-password", changePassword);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
+router.post("/update-profile-picture", updateProfilePicture);
 
 module.exports = router;

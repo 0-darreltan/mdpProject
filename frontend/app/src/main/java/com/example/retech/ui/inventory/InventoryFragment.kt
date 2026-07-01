@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.retech.R
 import com.example.retech.databaseModel.Device
 import com.example.retech.databaseViewModel.DeviceViewModel
@@ -62,6 +63,14 @@ class InventoryFragment : Fragment() {
         // Set userId dari session agar ViewModel memfilter per user
         val userId = sessionManager.getUserId() ?: ""
         deviceViewModel.setUserId(userId)
+
+        val profilePic = sessionManager.getProfilePicture()
+        if (!profilePic.isNullOrEmpty()) {
+            Glide.with(this)
+                .load(profilePic)
+                .placeholder(R.mipmap.ic_launcher)
+                .into(binding.ivProfileInventory)
+        }
 
         observeViewModel()
     }
@@ -173,7 +182,7 @@ class InventoryFragment : Fragment() {
             findNavController().navigate(R.id.action_inventoryFragment_to_addDeviceFragment)
         }
         
-        binding.ivProfileInventory.setOnClickListener {
+        binding.cvProfileInventory.setOnClickListener {
             findNavController().navigate(R.id.action_inventoryFragment_to_profileFragment)
         }
     }

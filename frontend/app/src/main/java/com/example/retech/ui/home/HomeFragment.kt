@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.retech.R
+import com.bumptech.glide.Glide
 import com.example.retech.databaseViewModel.DeviceViewModel
 import com.example.retech.databinding.FragmentHomeBinding
 import com.example.retech.utils.SessionManager
@@ -75,11 +76,18 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
 
         binding.tvHome1.text = "Welcome Back, $userName."
 
-        // Fetch user devices count for Home screen
         val userId = sessionManager.getUserId() ?: ""
         deviceViewModel.setUserId(userId)
         deviceViewModel.totalDeviceCount.observe(viewLifecycleOwner) { count ->
             binding.tvHome4.text = "$count Devices"
+        }
+
+        val profilePic = sessionManager.getProfilePicture()
+        if (!profilePic.isNullOrEmpty()) {
+            Glide.with(this)
+                .load(profilePic)
+                .placeholder(R.mipmap.ic_launcher)
+                .into(binding.ivProfileHome)
         }
 
         binding.tvGlobalMap.setOnClickListener {
@@ -107,7 +115,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
             )
         }
 
-        binding.ivProfileHome.setOnClickListener {
+        binding.cvProfileHome.setOnClickListener {
             findNavController().navigate(
                 R.id.action_homeFragment_to_profileFragment,
                 null,

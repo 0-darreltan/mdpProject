@@ -78,6 +78,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         user._id ?: "",
                         user.name ?: "",
                         user.email ?: "",
+                        user.profile_picture ?: "",
+                        user.role ?: "user"
                     )
                 }
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
@@ -120,14 +122,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     credential is GoogleIdTokenCredential -> {
                         val emailUser = credential.id
                         val namaUser = credential.displayName ?: "User ReTech"
-                        userViewModel.loginWithGoogle(namaUser, emailUser)
+                        val photoUrl = credential.profilePictureUri?.toString() ?: ""
+                        userViewModel.loginWithGoogle(namaUser, emailUser, photoUrl)
                     }
                     credential is CustomCredential &&
                     credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL -> {
                         val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
                         val emailUser = googleIdTokenCredential.id
                         val namaUser = googleIdTokenCredential.displayName ?: "User ReTech"
-                        userViewModel.loginWithGoogle(namaUser, emailUser)
+                        val photoUrl = googleIdTokenCredential.profilePictureUri?.toString() ?: ""
+                        userViewModel.loginWithGoogle(namaUser, emailUser, photoUrl)
                     }
                     else -> {
                         Log.e("ReTechGoogleAuth", "Tipe tidak dikenali")

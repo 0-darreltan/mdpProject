@@ -67,10 +67,12 @@ const login = async (req, res) => {
       success: true,
       message: "Login sukses!",
       token,
-      user: {
+        user: {
         id: user._id,
         name: user.name,
         email: user.email,
+        profile_picture: user.profile_picture || "",
+        role: user.role || "user",
       },
     });
   } catch (err) {
@@ -81,7 +83,7 @@ const login = async (req, res) => {
 
 const loginWithGoogle = async (req, res) => {
   try {
-    const { name, email } = req.body;
+    const { name, email, profile_picture } = req.body;
 
     if (!name || !email) {
       return res.status(400).json({ message: "Semua field harus diisi!" });
@@ -99,7 +101,11 @@ const loginWithGoogle = async (req, res) => {
         email,
         password: hashedRandomPassword,
         auth_provider: "google",
+        profile_picture: profile_picture || "",
       });
+    } else if (profile_picture && user.profile_picture !== profile_picture) {
+      user.profile_picture = profile_picture;
+      await user.save();
     }
 
     const token = user.generateAuthToken();
@@ -112,6 +118,8 @@ const loginWithGoogle = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        profile_picture: user.profile_picture || "",
+        role: user.role || "user",
       },
     });
   } catch (err) {
@@ -257,6 +265,33 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const updateProfilePicture = async (req, res) => {
+  try {
+    const { email, profile_picture } = req.body;
+
+    if (!email || !profile_picture) {
+      return res.status(400).json({ message: "Email dan gambar harus diisi!" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User tidak ditemukan!" });
+    }
+
+    user.profile_picture = profile_picture;
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile picture berhasil diupdate!",
+      profile_picture: user.profile_picture,
+    });
+  } catch (err) {
+    console.error("Error updateProfilePicture:", err);
+    return res.status(500).json({ message: "Server Error saat update gambar" });
+  }
+};
+
 module.exports = {
   register,
   login,
@@ -264,4 +299,5 @@ module.exports = {
   changePassword,
   forgotPassword,
   resetPassword,
+  updateProfilePicture,
 };

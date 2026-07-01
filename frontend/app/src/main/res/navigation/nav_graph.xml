@@ -158,6 +158,27 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_profileFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_profileFragment_to_manageDropoffFragment"
+            app:destination="@id/manageDropoffFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_profileFragment_to_manageGuideFragment"
+            app:destination="@id/manageGuideFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -165,5 +186,17 @@
         android:name="com.example.retech.ui.auth.ChangePasswordFragment"
         android:label="Change Password"
         tools2:layout="@layout/fragment_change_password" />
+
+    <fragment
+        android:id="@+id/manageDropoffFragment"
+        android:name="com.example.retech.ManageDropoffFragment"
+        android:label="Manage Dropoff"
+        tools:layout="@layout/fragment_manage_dropoff" />
+
+    <fragment
+        android:id="@+id/manageGuideFragment"
+        android:name="com.example.retech.ManageGuideFragment"
+        android:label="Manage Guide"
+        tools:layout="@layout/fragment_manage_guide" />
 
 </navigation>

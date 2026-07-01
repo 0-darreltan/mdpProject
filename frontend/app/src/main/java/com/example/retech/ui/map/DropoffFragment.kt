@@ -21,9 +21,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retech.R
+import com.bumptech.glide.Glide
 import com.example.retech.data.remote.RetrofitClient
 import com.example.retech.databaseModel.Locations
 import com.example.retech.databinding.FragmentDropoffBinding
+import com.example.retech.utils.SessionManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -41,6 +43,8 @@ class DropoffFragment : Fragment(), OnMapReadyCallback {
 
     private var _binding: FragmentDropoffBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var sessionManager: SessionManager
 
     private var mInterfaceMap: GoogleMap? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -81,6 +85,15 @@ class DropoffFragment : Fragment(), OnMapReadyCallback {
         setupSearch()
 
         getDropoffDataFromBackend()
+        
+        sessionManager = SessionManager(requireContext())
+        val profilePic = sessionManager.getProfilePicture()
+        if (!profilePic.isNullOrEmpty()) {
+            Glide.with(this)
+                .load(profilePic)
+                .placeholder(R.mipmap.ic_launcher)
+                .into(binding.ivProfileDropoff)
+        }
         
         // Navigasi ke halaman profile saat icon profile ditekan
         binding.cvProfileDropoff.setOnClickListener {
