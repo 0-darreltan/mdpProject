@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    private const val BASE_URL = "https://backend-eight-fawn-38.vercel.app/api/"
+    private const val BASE_URL = "https://backend-eight-fawn-38.vercel.app/"
 
     private val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
