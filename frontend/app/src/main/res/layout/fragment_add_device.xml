@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F4F4F4"
-    tools:context=".ui.inventory.AddDeviceFragment">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.retech.databaseViewModel.DeviceViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F4F4F4"
+        tools:context=".ui.inventory.AddDeviceFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -95,6 +103,7 @@
                     android:background="@drawable/bg_input_field"
                     android:fontFamily="@font/plus_jakarta_sans_medium"
                     android:hint="e.g. MacBook Pro 2023"
+                    android:text="@={viewModel.newDeviceName}"
                     android:inputType="text"
                     android:paddingHorizontal="16dp"
                     android:textColor="#1F2937"
@@ -271,3 +280,4 @@
     </ScrollView>
 
 </FrameLayout>
+</layout>

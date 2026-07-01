@@ -34,6 +34,9 @@ class ChangePasswordFragment : Fragment() {
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
         sessionManager = SessionManager(requireContext())
 
+        binding.viewModel = userViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         // Reset state before using
         userViewModel.resetChangePasswordState()
 
@@ -42,32 +45,13 @@ class ChangePasswordFragment : Fragment() {
         }
 
         binding.btnSavePassword.setOnClickListener {
-            val oldPassword = binding.etOldPassword.text.toString().trim()
-            val newPassword = binding.etNewPassword.text.toString().trim()
-            val confirmPassword = binding.etConfirmPassword.text.toString().trim()
-
-            if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-                Toast.makeText(requireContext(), "Semua field harus diisi", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (newPassword.length < 6) {
-                Toast.makeText(requireContext(), "Password baru minimal 6 karakter", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (newPassword != confirmPassword) {
-                Toast.makeText(requireContext(), "Konfirmasi password tidak cocok", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
             val email = sessionManager.getUserEmail()
             if (email.isNullOrEmpty()) {
                 Toast.makeText(requireContext(), "Sesi tidak valid, harap relogin", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            userViewModel.changePassword(email, oldPassword, newPassword)
+            userViewModel.changePassword(email)
         }
 
         userViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->

@@ -44,6 +44,8 @@ class AddDeviceFragment : Fragment() {
 
         sessionManager = SessionManager(requireContext())
         deviceViewModel = ViewModelProvider(requireActivity())[DeviceViewModel::class.java]
+        binding.viewModel = deviceViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         deviceToEdit = arguments?.getSerializable("device_to_edit") as? Device
 
@@ -59,7 +61,7 @@ class AddDeviceFragment : Fragment() {
     }
     
     private fun prefillDeviceData() {
-        binding.etDeviceName.setText(deviceToEdit!!.name)
+        deviceViewModel.newDeviceName.value = deviceToEdit!!.name
         
         val categories = listOf("Laptop", "Smartphone", "Tablet", "Monitor", "Peripheral")
         val index = categories.indexOf(deviceToEdit!!.category)
@@ -133,7 +135,7 @@ class AddDeviceFragment : Fragment() {
 
     private fun setupSaveButton() {
         binding.btnSaveDevice.setOnClickListener {
-            val deviceName = binding.etDeviceName.text.toString().trim()
+            val deviceName = deviceViewModel.newDeviceName.value?.trim() ?: ""
 
             if (deviceName.isEmpty()) {
                 Toast.makeText(requireContext(), "Please enter a device name", Toast.LENGTH_SHORT).show()
@@ -223,5 +225,6 @@ class AddDeviceFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        deviceViewModel.newDeviceName.value = "" // clear for next use
     }
 }

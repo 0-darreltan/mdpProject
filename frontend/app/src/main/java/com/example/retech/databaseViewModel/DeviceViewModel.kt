@@ -39,6 +39,9 @@ class DeviceViewModel(application: Application) : AndroidViewModel(application) 
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> get() = _error
 
+    // Binding properties
+    val newDeviceName = MutableLiveData<String>()
+
     // Set user ID yang sedang login, agar LiveData devices di-filter per user
     fun setUserId(userId: String) {
         _currentUserId.value = userId

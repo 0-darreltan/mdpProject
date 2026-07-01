@@ -6,10 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.retech.databaseModel.Device
 
-@Database(entities = [Device::class], version = 1, exportSchema = false)
+import com.example.retech.databaseModel.Guide
+
+@Database(entities = [Device::class, Guide::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun deviceDao(): DeviceDao
+    abstract fun guideDao(): GuideDao
 
     companion object {
         @Volatile

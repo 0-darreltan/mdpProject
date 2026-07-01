@@ -24,6 +24,8 @@ class NewPasswordFragment : Fragment(R.layout.fragment_new_password) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewPasswordBinding.inflate(inflater, container, false)
+        binding.viewModel = userViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -33,41 +35,12 @@ class NewPasswordFragment : Fragment(R.layout.fragment_new_password) {
         setupObservers()
 
         binding.btnUpdatePassword.setOnClickListener {
-            val token = binding.etToken.text.toString().trim()
-            val newPassword = binding.etNewPassword.text.toString().trim()
-            val confirmPassword = binding.etConfirmPassword.text.toString().trim()
-
             // Reset error messages
             binding.tilToken.error = null
             binding.tilNewPassword.error = null
             binding.tilConfirmPassword.error = null
 
-            var isValid = true
-
-            if (token.isEmpty()) {
-                binding.tilToken.error = "Token reset wajib diisi (Cek email)"
-                isValid = false
-            }
-
-            if (newPassword.isEmpty()) {
-                binding.tilNewPassword.error = "Password baru wajib diisi"
-                isValid = false
-            } else if (newPassword.length < 6) {
-                binding.tilNewPassword.error = "Password minimal 6 karakter"
-                isValid = false
-            }
-
-            if (confirmPassword.isEmpty()) {
-                binding.tilConfirmPassword.error = "Konfirmasi password wajib diisi"
-                isValid = false
-            } else if (newPassword != confirmPassword) {
-                binding.tilConfirmPassword.error = "Password tidak cocok"
-                isValid = false
-            }
-
-            if (isValid) {
-                userViewModel.resetPassword(token, newPassword)
-            }
+            userViewModel.resetPassword()
         }
 
         binding.tvBackToLogin.setOnClickListener {

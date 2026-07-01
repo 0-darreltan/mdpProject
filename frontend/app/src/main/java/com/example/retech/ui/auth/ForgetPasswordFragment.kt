@@ -23,6 +23,8 @@ class ForgetPasswordFragment : Fragment(R.layout.fragment_forget_password) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentForgetPasswordBinding.inflate(inflater, container, false)
+        binding.viewModel = userViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -49,12 +51,7 @@ class ForgetPasswordFragment : Fragment(R.layout.fragment_forget_password) {
         }
 
         binding.btnSendForget.setOnClickListener {
-            val email = binding.etEmailLogin.text.toString().trim()
-            if (email.isEmpty()) {
-                binding.etEmailLogin.error = "Email wajib diisi"
-                return@setOnClickListener
-            }
-            userViewModel.forgotPassword(email)
+            userViewModel.forgotPassword()
         }
 
         binding.btnBackForget.setOnClickListener {

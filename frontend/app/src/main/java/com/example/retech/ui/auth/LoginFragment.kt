@@ -35,6 +35,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding.viewModel = userViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -49,15 +51,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         binding.btnLoginEmail.setOnClickListener {
-            val email = binding.etEmailLogin.text.toString().trim()
-            val password = binding.etPassLogin.text.toString().trim()
-
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Harap isi email dan password", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            userViewModel.login(email, password)
+            userViewModel.login()
         }
 
         binding.btnLoginGoogle.setOnClickListener {

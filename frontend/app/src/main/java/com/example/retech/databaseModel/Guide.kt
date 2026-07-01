@@ -6,7 +6,7 @@ import java.io.Serializable
 
 @Entity(tableName = "guides")
 data class Guide(
-    val _id: String? = null,
+    @PrimaryKey val _id: String = "",
     val name: String,
     val category: String,
     val summary: String,

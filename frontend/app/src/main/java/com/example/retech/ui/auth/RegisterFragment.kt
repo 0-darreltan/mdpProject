@@ -32,6 +32,8 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        binding.viewModel = userViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -45,16 +47,7 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btnRegistEmail.setOnClickListener {
-            val nama = binding.etNamaRegist.text.toString().trim()
-            val email = binding.etEmailRegist.text.toString().trim()
-            val password = binding.etPassRegist.text.toString().trim()
-
-            if (nama.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Harap isi semua bidang", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            userViewModel.register(nama, email, password)
+            userViewModel.register()
         }
 
         binding.btnRegistGoogle.setOnClickListener {

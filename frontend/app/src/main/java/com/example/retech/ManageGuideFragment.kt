@@ -112,7 +112,7 @@ class ManageGuideFragment : Fragment() {
         }
         
         val guide = Guide(
-            _id = selectedGuideId,
+            _id = selectedGuideId ?: "",
             name = name,
             category = category,
             summary = summary,

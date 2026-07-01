@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://tools.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.auth.RegisterFragment">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.retech.databaseViewModel.UserViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.auth.RegisterFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -103,6 +111,7 @@
                         android:hint="Full Name"
                         android:textColorHint="#A0A9B0"
                         android:inputType="textPersonName"
+                        android:text="@={viewModel.registerName}"
                         android:paddingStart="50dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,6 +153,7 @@
                         android:hint="Email Address"
                         android:textColorHint="#A0A9B0"
                         android:inputType="textEmailAddress"
+                        android:text="@={viewModel.registerEmail}"
                         android:paddingStart="50dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -186,6 +196,7 @@
                         android:hint="Password"
                         android:textColorHint="#A0A9B0"
                         android:inputType="textPassword"
+                        android:text="@={viewModel.registerPassword}"
                         android:paddingStart="50dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -302,3 +313,4 @@
             app:layout_constraintTop_toTopOf="@+id/tvRegister3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
+</layout>

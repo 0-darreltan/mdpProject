@@ -21,7 +21,23 @@ class UserViewModel : ViewModel() {
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> get() = _error
 
-    fun register(name: String, email: String, password: String) {
+    val loginEmail = MutableLiveData<String>()
+    val loginPassword = MutableLiveData<String>()
+
+    val registerName = MutableLiveData<String>()
+    val registerEmail = MutableLiveData<String>()
+    val registerPassword = MutableLiveData<String>()
+
+    fun register() {
+        val name = registerName.value?.trim() ?: ""
+        val email = registerEmail.value?.trim() ?: ""
+        val password = registerPassword.value?.trim() ?: ""
+
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            _error.value = "Harap isi semua kolom"
+            return
+        }
+
         _isLoading.value = true
         viewModelScope.launch {
             try {
@@ -40,7 +56,15 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    fun login(email: String, password: String) {
+    fun login() {
+        val email = loginEmail.value?.trim() ?: ""
+        val password = loginPassword.value?.trim() ?: ""
+        
+        if (email.isEmpty() || password.isEmpty()) {
+            _error.value = "Harap isi email dan password"
+            return
+        }
+
         _isLoading.value = true
         viewModelScope.launch {
             try {
@@ -91,7 +115,15 @@ class UserViewModel : ViewModel() {
     private val _changePasswordSuccess = MutableLiveData<Boolean?>()
     val changePasswordSuccess: LiveData<Boolean?> get() = _changePasswordSuccess
 
-    fun forgotPassword(email: String) {
+    val forgetPasswordEmail = MutableLiveData<String>()
+
+    fun forgotPassword() {
+        val email = forgetPasswordEmail.value?.trim() ?: ""
+        if (email.isEmpty()) {
+            _error.value = "Email tidak boleh kosong"
+            return
+        }
+
         _isLoading.value = true
         viewModelScope.launch {
             try {
@@ -112,7 +144,30 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    fun resetPassword(token: String, newPassword: String) {
+    val resetToken = MutableLiveData<String>()
+    val resetNewPassword = MutableLiveData<String>()
+    val resetConfirmPassword = MutableLiveData<String>()
+
+    fun resetPassword() {
+        val token = resetToken.value?.trim() ?: ""
+        val newPassword = resetNewPassword.value?.trim() ?: ""
+        val confirmPassword = resetConfirmPassword.value?.trim() ?: ""
+
+        if (token.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+            _error.value = "Semua bidang wajib diisi"
+            return
+        }
+
+        if (newPassword.length < 6) {
+            _error.value = "Password baru minimal 6 karakter"
+            return
+        }
+
+        if (newPassword != confirmPassword) {
+            _error.value = "Konfirmasi password tidak cocok"
+            return
+        }
+
         _isLoading.value = true
         viewModelScope.launch {
             try {
@@ -133,7 +188,30 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    fun changePassword(email: String, oldPassword: String, newPassword: String) {
+    val changeOldPassword = MutableLiveData<String>()
+    val changeNewPassword = MutableLiveData<String>()
+    val changeConfirmPassword = MutableLiveData<String>()
+
+    fun changePassword(email: String) {
+        val oldPassword = changeOldPassword.value?.trim() ?: ""
+        val newPassword = changeNewPassword.value?.trim() ?: ""
+        val confirmPassword = changeConfirmPassword.value?.trim() ?: ""
+
+        if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+            _error.value = "Semua bidang wajib diisi"
+            return
+        }
+
+        if (newPassword.length < 6) {
+            _error.value = "Password baru minimal 6 karakter"
+            return
+        }
+
+        if (newPassword != confirmPassword) {
+            _error.value = "Konfirmasi password tidak cocok"
+            return
+        }
+
         _isLoading.value = true
         viewModelScope.launch {
             try {
