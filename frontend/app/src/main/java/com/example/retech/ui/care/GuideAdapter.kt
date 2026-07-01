@@ -29,7 +29,7 @@ class GuideAdapter(private var guides: List<Guide>) : RecyclerView.Adapter<Guide
                 .placeholder(android.R.drawable.ic_menu_gallery)
                 .into(ivGuideImage)
 
-            root.setOnClickListener {
+            val openLink: (android.view.View) -> Unit = {
                 try {
                     val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(guide.file_url))
                     root.context.startActivity(intent)
@@ -37,6 +37,9 @@ class GuideAdapter(private var guides: List<Guide>) : RecyclerView.Adapter<Guide
                     android.widget.Toast.makeText(root.context, "Gagal membuka link panduan", android.widget.Toast.LENGTH_SHORT).show()
                 }
             }
+
+            root.setOnClickListener(openLink)
+            btnReadMore.setOnClickListener(openLink)
         }
     }
 

@@ -31,6 +31,7 @@ class CareGuideFragment : Fragment() {
         // Setup RecyclerView
         adapter = GuideAdapter(emptyList())
         binding.rvGuides.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvGuides.isNestedScrollingEnabled = false
         binding.rvGuides.adapter = adapter
 
         // Setup ViewModel
@@ -42,16 +43,11 @@ class CareGuideFragment : Fragment() {
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            // Use progressBar if it's back, or omit
         }
 
         viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            if (errorMessage != null) {
-                binding.tvError.visibility = View.VISIBLE
-                binding.tvError.text = errorMessage
-            } else {
-                binding.tvError.visibility = View.GONE
-            }
+            // Use error view if it's back, or omit
         }
 
         // Fetch Data

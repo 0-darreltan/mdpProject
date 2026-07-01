@@ -7,7 +7,7 @@ import java.io.Serializable
 @Entity(tableName = "guides")
 data class Guide(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     val name: String,
     val category: String,
     val summary: String,

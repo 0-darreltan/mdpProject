@@ -195,115 +195,85 @@ const sampleLocations = [
 
 const sampleGuides = [
   {
-    name: "Membersihkan Port Pengisian Daya",
+    name: "Cara Merawat Baterai Smartphone Agar Awet",
     category: "Smartphone",
     summary:
-      "Panduan membersihkan port pengisian daya smartphone dengan aman agar koneksi charger tetap optimal.",
+      "Panduan lengkap merawat baterai smartphone Anda dengan pengisian daya yang benar dan menghindari overcharging untuk umur baterai yang lebih panjang.",
     image_url:
-      "https://res.cloudinary.com/your-cloud/image/upload/smartphone-port-cleaning.jpg",
+      "https://images.unsplash.com/photo-1601784551446-20c9e07cdbf3?q=80&w=600&auto=format&fit=crop",
     file_url:
-      "https://res.cloudinary.com/your-cloud/raw/upload/smartphone-port-cleaning.pdf",
+      "https://www.samsung.com/id/support/mobile-devices/how-to-keep-your-galaxy-battery-healthy/",
   },
   {
-    name: "Perawatan Layar & Anti Gores",
-    category: "Smartphone",
+    name: "Tips Merawat Laptop Agar Performa Tetap Maksimal",
+    category: "Laptop",
     summary:
-      "Cara merawat layar smartphone agar tetap bersih dan terhindar dari goresan.",
+      "Langkah-langkah penting untuk merawat laptop, mulai dari kebersihan fisik, sirkulasi udara yang baik, hingga perawatan software.",
     image_url:
-      "https://res.cloudinary.com/your-cloud/image/upload/smartphone-screen-care.jpg",
+      "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=600&auto=format&fit=crop",
     file_url:
-      "https://res.cloudinary.com/your-cloud/raw/upload/smartphone-screen-care.pdf",
+      "https://www.asus.com/id/support/faq/1044456/",
   },
   {
-    name: "Perawatan Sensor Optik",
-    category: "Smartwatch",
+    name: "Mengenal E-Waste dan Cara Pengelolaannya",
+    category: "E-Waste",
     summary:
-      "Panduan membersihkan sensor optik smartwatch agar pembacaan detak jantung tetap akurat.",
+      "Apa itu sampah elektronik (e-waste) dan bagaimana langkah yang benar untuk mendaur ulang atau membuangnya agar tidak merusak lingkungan sekitar.",
     image_url:
-      "https://res.cloudinary.com/your-cloud/image/upload/smartwatch-sensor.jpg",
+      "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=600&auto=format&fit=crop",
     file_url:
-      "https://res.cloudinary.com/your-cloud/raw/upload/smartwatch-sensor.pdf",
+      "https://zerowaste.id/zero-waste-lifestyle/e-waste/",
   },
   {
-    name: "Optimalisasi Penyimpanan Baterai",
-    category: "Tablet",
-    summary:
-      "Tips menyimpan tablet dengan kondisi baterai yang ideal untuk memperpanjang usia perangkat.",
-    image_url:
-      "https://res.cloudinary.com/your-cloud/image/upload/tablet-battery.jpg",
-    file_url:
-      "https://res.cloudinary.com/your-cloud/raw/upload/tablet-battery.pdf",
-  },
-  {
-    name: "Pembersihan Mesh Audio",
-    category: "TWS / Earbuds",
-    summary:
-      "Cara membersihkan mesh audio TWS agar kualitas suara tetap jernih.",
-    image_url:
-      "https://res.cloudinary.com/your-cloud/image/upload/tws-cleaning.jpg",
-    file_url:
-      "https://res.cloudinary.com/your-cloud/raw/upload/tws-cleaning.pdf",
-  },
-  {
-    name: "Pembersihan Lensa & Sensor",
-    category: "Kamera Digital",
-    summary:
-      "Panduan membersihkan lensa dan sensor kamera digital dengan aman.",
-    image_url:
-      "https://res.cloudinary.com/your-cloud/image/upload/camera-lens.jpg",
-    file_url:
-      "https://res.cloudinary.com/your-cloud/raw/upload/camera-lens.pdf",
-  },
-  {
-    name: "Perawatan Sistem Pendingin",
-    category: "Konsol Game",
-    summary:
-      "Tips menjaga sistem pendingin konsol game agar tidak mudah overheat.",
-    image_url:
-      "https://res.cloudinary.com/your-cloud/image/upload/game-console.jpg",
-    file_url:
-      "https://res.cloudinary.com/your-cloud/raw/upload/game-console.pdf",
-  },
-  {
-    name: "Perawatan Panel LED/OLED",
+    name: "Cara Membersihkan Smart TV LED/OLED",
     category: "Smart TV",
     summary:
-      "Cara merawat panel LED/OLED agar kualitas tampilan tetap optimal.",
+      "Panduan aman membersihkan layar TV Anda menggunakan kain mikrofiber dan bahan yang tepat tanpa berisiko merusak panel layar.",
     image_url:
-      "https://res.cloudinary.com/your-cloud/image/upload/smart-tv.jpg",
+      "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=600&auto=format&fit=crop",
     file_url:
-      "https://res.cloudinary.com/your-cloud/raw/upload/smart-tv.pdf",
+      "https://www.samsung.com/id/support/tv-audio-video/how-to-clean-your-samsung-smart-tv/",
   },
   {
-    name: "Mencegah Tinta Kering",
+    name: "Merawat TWS & Earbuds Agar Suara Tetap Jernih",
+    category: "TWS / Earbuds",
+    summary:
+      "Jangan biarkan kotoran menumpuk yang bisa merusak kualitas audio. Berikut cara jitu membersihkan mesh audio pada earphone TWS Anda.",
+    image_url:
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600&auto=format&fit=crop",
+    file_url:
+      "https://eraspace.com/artikel/post/cara-membersihkan-tws",
+  },
+  {
+    name: "Panduan Perawatan Baterai dan Lensa Kamera Digital",
+    category: "Kamera Digital",
+    summary:
+      "Hindari jamur pada lensa dan jaga kondisi sel baterai kamera Anda saat disimpan dalam waktu yang lama menggunakan dry box.",
+    image_url:
+      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
+    file_url:
+      "https://www.bhinneka.com/blog/cara-merawat-kamera-dslr/",
+  },
+  {
+    name: "Cara Agar Tinta Printer Tidak Cepat Kering",
     category: "Printer",
     summary:
-      "Panduan mencegah tinta printer mengering dan menjaga kualitas cetak.",
+      "Sering mengalami tinta kering karena jarang dipakai? Ikuti panduan pemeliharaan printer secara rutin agar print head tidak mampet.",
     image_url:
-      "https://res.cloudinary.com/your-cloud/image/upload/printer.jpg",
+      "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?q=80&w=600&auto=format&fit=crop",
     file_url:
-      "https://res.cloudinary.com/your-cloud/raw/upload/printer.pdf",
+      "https://www.epson.co.id/Support/Printers/sh/s1",
   },
   {
-    name: "Optimalisasi Kinerja Jaringan",
-    category: "Router Wi-Fi",
+    name: "Mengelola Gadget Bekas: Donasi atau Daur Ulang?",
+    category: "E-Waste",
     summary:
-      "Tips mengoptimalkan performa router Wi-Fi agar koneksi tetap stabil.",
+      "Bingung mau diapakan smartphone atau laptop jadul Anda? Ini opsi bijak untuk mengelola limbah e-waste sebelum Anda memutuskan membuangnya.",
     image_url:
-      "https://res.cloudinary.com/your-cloud/image/upload/router.jpg",
+      "https://images.unsplash.com/photo-1563770660941-20978e870e26?q=80&w=600&auto=format&fit=crop",
     file_url:
-      "https://res.cloudinary.com/your-cloud/raw/upload/router.pdf",
-  },
-  {
-    name: "Menjaga Kesehatan Sel Baterai",
-    category: "Power Bank",
-    summary:
-      "Panduan merawat power bank agar baterai lebih awet dan aman digunakan.",
-    image_url:
-      "https://res.cloudinary.com/your-cloud/image/upload/powerbank.jpg",
-    file_url:
-      "https://res.cloudinary.com/your-cloud/raw/upload/powerbank.pdf",
-  },
+      "https://ewasterj.com/",
+  }
 ];
 
 const seedData = async () => {
