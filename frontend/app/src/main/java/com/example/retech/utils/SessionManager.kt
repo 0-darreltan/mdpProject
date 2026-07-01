@@ -28,6 +28,8 @@ class SessionManager(context: Context) {
 
     fun getUserName(): String? = prefs.getString(KEY_USER_NAME, null)
 
+    fun getUserEmail(): String? = prefs.getString(KEY_USER_EMAIL, null)
+
     fun logout() {
         val editor = prefs.edit()
         editor.clear()

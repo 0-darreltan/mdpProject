@@ -172,6 +172,10 @@ class InventoryFragment : Fragment() {
         binding.btnAddDevice.setOnClickListener {
             findNavController().navigate(R.id.action_inventoryFragment_to_addDeviceFragment)
         }
+        
+        binding.ivProfileInventory.setOnClickListener {
+            findNavController().navigate(R.id.action_inventoryFragment_to_profileFragment)
+        }
     }
 
     override fun onDestroyView() {

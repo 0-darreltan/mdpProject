@@ -1,8 +1,10 @@
 package com.example.retech.databaseModel
 
 import java.io.Serializable
+import com.google.gson.annotations.SerializedName
 
 data class Users(
+    @SerializedName("_id", alternate = ["id"])
     val _id: String? = null,
     val name: String,
     val email: String,

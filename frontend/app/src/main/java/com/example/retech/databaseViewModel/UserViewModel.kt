@@ -8,7 +8,6 @@ import com.example.retech.data.remote.RetrofitClient
 import com.example.retech.databaseModel.AuthResponse
 import com.example.retech.databaseModel.Users
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 
 class UserViewModel : ViewModel() {
 
@@ -21,13 +20,11 @@ class UserViewModel : ViewModel() {
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> get() = _error
 
-    // Status khusus untuk Reset Password
-    private val _resetSuccess = MutableLiveData<Boolean>()
-    val resetSuccess: LiveData<Boolean> get() = _resetSuccess
-
-    // Status khusus untuk Forget Password
     private val _forgotPasswordSuccess = MutableLiveData<Boolean>()
     val forgotPasswordSuccess: LiveData<Boolean> get() = _forgotPasswordSuccess
+
+    private val _resetSuccess = MutableLiveData<Boolean?>()
+    val resetSuccess: LiveData<Boolean?> get() = _resetSuccess
 
     fun register(name: String, email: String, password: String) {
         _isLoading.value = true
@@ -38,7 +35,7 @@ class UserViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _authResult.value = response.body()
                 } else {
-                    _error.value = parseError(response.errorBody()?.string()) ?: "Registration Failed"
+                    _error.value = "Registration Failed: ${response.message()}"
                 }
             } catch (e: Exception) {
                 _error.value = "Error: ${e.message}"
@@ -57,7 +54,7 @@ class UserViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _authResult.value = response.body()
                 } else {
-                    _error.value = parseError(response.errorBody()?.string()) ?: "Login Failed"
+                    _error.value = "Login Failed: Invalid credentials"
                 }
             } catch (e: Exception) {
                 _error.value = "Error: ${e.message}"
@@ -69,29 +66,41 @@ class UserViewModel : ViewModel() {
 
     fun loginWithGoogle(name: String, email: String) {
         _isLoading.value = true
+        
+        val googleUser = Users(
+            _id = "google_${email}",
+            name = name,
+            email = email,
+            auth_provider = "google"
+        )
+        
+        val response = AuthResponse(
+            success = true,
+            message = "Login Google Sukses (Lokal)",
+            token = "local_google_token",
+            user = googleUser
+        )
+
         // Set value langsung tanpa memanggil Retrofit
-        val googleUser = Users(_id = "google_${email}", name = name, email = email, auth_provider = "google")
-        val response = AuthResponse(success = true, message = "Login Google Sukses", token = "local_token", user = googleUser)
         _authResult.value = response
         _isLoading.value = false
     }
 
     fun forgotPassword(email: String) {
         _isLoading.value = true
-        _forgotPasswordSuccess.value = false
         viewModelScope.launch {
             try {
-                val body = mapOf("email" to email)
-                val response = RetrofitClient.userService.forgotPassword(body)
+                val data = mapOf("email" to email)
+                val response = RetrofitClient.userService.forgotPassword(data)
                 if (response.isSuccessful) {
                     _forgotPasswordSuccess.value = true
-                    _error.value = response.body()?.message ?: "Link reset terkirim"
                 } else {
-                    val errorMsg = parseError(response.errorBody()?.string())
-                    _error.value = errorMsg ?: "Gagal: Pastikan backend sudah menyala"
+                    _error.value = "Failed: ${response.message()}"
+                    _forgotPasswordSuccess.value = false
                 }
             } catch (e: Exception) {
-                _error.value = "Koneksi Gagal: ${e.message}"
+                _error.value = "Error: ${e.message}"
+                _forgotPasswordSuccess.value = false
             } finally {
                 _isLoading.value = false
             }
@@ -102,29 +111,52 @@ class UserViewModel : ViewModel() {
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                val body = mapOf("token" to token, "newPassword" to newPassword)
-                val response = RetrofitClient.userService.resetPassword(body)
+                val data = mapOf("token" to token, "newPassword" to newPassword)
+                val response = RetrofitClient.userService.resetPassword(data)
                 if (response.isSuccessful) {
                     _resetSuccess.value = true
-                    _error.value = response.body()?.message ?: "Password berhasil diubah"
                 } else {
-                    _error.value = parseError(response.errorBody()?.string()) ?: "Gagal reset password"
+                    _error.value = "Failed: ${response.message()}"
+                    _resetSuccess.value = false
                 }
             } catch (e: Exception) {
-                _error.value = "Koneksi Gagal: ${e.message}"
+                _error.value = "Error: ${e.message}"
+                _resetSuccess.value = false
             } finally {
                 _isLoading.value = false
             }
         }
     }
+    
+    private val _changePasswordSuccess = MutableLiveData<Boolean?>()
+    val changePasswordSuccess: LiveData<Boolean?> get() = _changePasswordSuccess
 
-    private fun parseError(json: String?): String? {
-        return try {
-            if (json == null) return null
-            val obj = JSONObject(json)
-            obj.getString("message")
-        } catch (e: Exception) {
-            null
+    fun changePassword(email: String, oldPassword: String, newPassword: String) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                val data = mapOf(
+                    "email" to email,
+                    "oldPassword" to oldPassword,
+                    "newPassword" to newPassword
+                )
+                val response = RetrofitClient.userService.changePassword(data)
+                if (response.isSuccessful) {
+                    _changePasswordSuccess.value = true
+                } else {
+                    _error.value = "Failed: ${response.message()}"
+                    _changePasswordSuccess.value = false
+                }
+            } catch (e: Exception) {
+                _error.value = "Error: ${e.message}"
+                _changePasswordSuccess.value = false
+            } finally {
+                _isLoading.value = false
+            }
         }
+    }
+    
+    fun resetChangePasswordState() {
+        _changePasswordSuccess.value = null
     }
 }

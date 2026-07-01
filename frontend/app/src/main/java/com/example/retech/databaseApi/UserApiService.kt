@@ -17,8 +17,11 @@ interface UserApiService {
     suspend fun loginWithGoogle(@Body googleData: Map<String, String>): Response<AuthResponse>
 
     @POST("api/auth/forgot-password")
-    suspend fun forgotPassword(@Body body: Map<String, String>): Response<AuthResponse>
+    suspend fun forgotPassword(@Body emailData: Map<String, String>): Response<AuthResponse>
 
     @POST("api/auth/reset-password")
-    suspend fun resetPassword(@Body body: Map<String, String>): Response<AuthResponse>
+    suspend fun resetPassword(@Body resetData: Map<String, String>): Response<AuthResponse>
+
+    @POST("api/auth/change-password")
+    suspend fun changePassword(@Body changeData: Map<String, String>): Response<AuthResponse>
 }

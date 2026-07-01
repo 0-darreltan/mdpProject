@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://tools.android.com/tools"
+    xmlns:tools2="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
@@ -74,6 +75,13 @@
         <action
             android:id="@+id/action_inventoryFragment_to_addDeviceFragment"
             app:destination="@id/addDeviceFragment" />
+        <action
+            android:id="@+id/action_inventoryFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -118,8 +126,8 @@
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.example.retech.ui.auth.ForgetPasswordFragment"
-        android:label="Forget Password"
-        tools:layout="@layout/fragment_forget_password" >
+        android:label="fragment_forget_password"
+        tools2:layout="@layout/fragment_forget_password" >
         <action
             android:id="@+id/action_forgetPasswordFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -131,19 +139,31 @@
     <fragment
         android:id="@+id/newPasswordFragment"
         android:name="com.example.retech.ui.auth.NewPasswordFragment"
-        android:label="New Password"
-        tools:layout="@layout/fragment_new_password" >
+        android:label="fragment_new_password"
+        tools2:layout="@layout/fragment_new_password" >
         <action
             android:id="@+id/action_newPasswordFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/loginFragment" />
     </fragment>
-
+    
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.retech.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools2:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.retech.ui.auth.ChangePasswordFragment"
+        android:label="Change Password"
+        tools2:layout="@layout/fragment_change_password" />
 
 </navigation>

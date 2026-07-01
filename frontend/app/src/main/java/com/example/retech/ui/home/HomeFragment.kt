@@ -106,6 +106,14 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
                 navOptionsToRight
             )
         }
+
+        binding.ivProfileHome.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_homeFragment_to_profileFragment,
+                null,
+                navOptionsToRight
+            )
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
