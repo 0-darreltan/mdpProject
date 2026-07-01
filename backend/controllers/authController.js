@@ -189,8 +189,8 @@ const forgotPassword = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "jiewandana888@gmail.com", 
-        pass: "wgfc kayl gthq rwab",  
+        user: process.env.EMAIL_USER, 
+        pass: process.env.EMAIL_PASS,  
       },
     });
 

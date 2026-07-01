@@ -7,24 +7,24 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface UserApiService {
-    @POST("api/auth/register")
+    @POST("auth/register")
     suspend fun register(@Body user: Users): Response<AuthResponse>
 
-    @POST("api/auth/login")
+    @POST("auth/login")
     suspend fun login(@Body credentials: Map<String, String>): Response<AuthResponse>
 
-    @POST("api/auth/google")
+    @POST("auth/google")
     suspend fun loginWithGoogle(@Body googleData: Map<String, String>): Response<AuthResponse>
 
-    @POST("api/auth/forgot-password")
+    @POST("auth/forgot-password")
     suspend fun forgotPassword(@Body emailData: Map<String, String>): Response<AuthResponse>
 
-    @POST("api/auth/reset-password")
+    @POST("auth/reset-password")
     suspend fun resetPassword(@Body resetData: Map<String, String>): Response<AuthResponse>
 
-    @POST("api/auth/change-password")
+    @POST("auth/change-password")
     suspend fun changePassword(@Body changeData: Map<String, String>): Response<AuthResponse>
 
-    @POST("api/auth/update-profile-picture")
+    @POST("auth/update-profile-picture")
     suspend fun updateProfilePicture(@Body data: Map<String, String>): Response<AuthResponse>
 }
