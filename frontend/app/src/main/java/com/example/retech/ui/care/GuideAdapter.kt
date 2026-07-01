@@ -7,7 +7,10 @@ import com.bumptech.glide.Glide
 import com.example.retech.databaseModel.Guide
 import com.example.retech.databinding.ItemGuideBinding
 
-class GuideAdapter(private var guides: List<Guide>) : RecyclerView.Adapter<GuideAdapter.GuideViewHolder>() {
+class GuideAdapter(
+    private var guides: List<Guide>,
+    private val onItemClick: ((Guide) -> Unit)? = null
+) : RecyclerView.Adapter<GuideAdapter.GuideViewHolder>() {
 
     class GuideViewHolder(val binding: ItemGuideBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -30,11 +33,15 @@ class GuideAdapter(private var guides: List<Guide>) : RecyclerView.Adapter<Guide
                 .into(ivGuideImage)
 
             val openLink: (android.view.View) -> Unit = {
-                try {
-                    val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(guide.file_url))
-                    root.context.startActivity(intent)
-                } catch (e: Exception) {
-                    android.widget.Toast.makeText(root.context, "Gagal membuka link panduan", android.widget.Toast.LENGTH_SHORT).show()
+                if (onItemClick != null) {
+                    onItemClick.invoke(guide)
+                } else {
+                    try {
+                        val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(guide.file_url))
+                        root.context.startActivity(intent)
+                    } catch (e: Exception) {
+                        android.widget.Toast.makeText(root.context, "Gagal membuka link panduan", android.widget.Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
