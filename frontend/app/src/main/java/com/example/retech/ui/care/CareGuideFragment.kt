@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.example.retech.R
 import com.example.retech.databinding.FragmentCareGuideBinding
+import com.example.retech.utils.SessionManager
 
 class CareGuideFragment : Fragment() {
 
@@ -16,6 +20,7 @@ class CareGuideFragment : Fragment() {
 
     private lateinit var viewModel: GuideViewModel
     private lateinit var adapter: GuideAdapter
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +38,19 @@ class CareGuideFragment : Fragment() {
         binding.rvGuides.layoutManager = LinearLayoutManager(requireContext())
         binding.rvGuides.isNestedScrollingEnabled = false
         binding.rvGuides.adapter = adapter
+
+        sessionManager = SessionManager(requireContext())
+        val profilePic = sessionManager.getProfilePicture()
+        if (!profilePic.isNullOrEmpty()) {
+            Glide.with(this)
+                .load(profilePic)
+                .placeholder(R.mipmap.ic_launcher)
+                .into(binding.ivProfileCareGuide)
+        }
+
+        binding.cvProfileCareGuide.setOnClickListener {
+            findNavController().navigate(R.id.action_careGuideFragment_to_profileFragment)
+        }
 
         // Setup ViewModel
         viewModel = ViewModelProvider(this)[GuideViewModel::class.java]

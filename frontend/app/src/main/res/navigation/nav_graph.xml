@@ -121,7 +121,15 @@
         android:id="@+id/careGuideFragment"
         android:name="com.example.retech.ui.care.CareGuideFragment"
         android:label="Hardware Care Guides"
-        tools:layout="@layout/fragment_care_guide" />
+        tools:layout="@layout/fragment_care_guide">
+        <action
+            android:id="@+id/action_careGuideFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/forgetPasswordFragment"
