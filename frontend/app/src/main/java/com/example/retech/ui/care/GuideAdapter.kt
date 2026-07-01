@@ -27,8 +27,15 @@ class GuideAdapter(
             tvGuideCategory.text = guide.category
             tvGuideSummary.text = guide.summary
 
+            var imageUrl = guide.image_url
+            if (imageUrl.startsWith("/")) {
+                imageUrl = "http://10.0.2.2:3000$imageUrl"
+            } else if (imageUrl.contains("localhost")) {
+                imageUrl = imageUrl.replace("localhost", "10.0.2.2")
+            }
+
             Glide.with(root.context)
-                .load(guide.image_url)
+                .load(imageUrl)
                 .placeholder(android.R.drawable.ic_menu_gallery)
                 .into(ivGuideImage)
 

@@ -27,6 +27,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.CancellationTokenSource
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.retech.ui.care.GuideAdapter
+import com.example.retech.ui.care.GuideViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
 
@@ -37,6 +40,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
     private lateinit var deviceViewModel: DeviceViewModel
     private var mInterfaceMap: GoogleMap? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var guideViewModel: GuideViewModel
+    private lateinit var guideAdapter: GuideAdapter
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -61,6 +66,16 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
         sessionManager = SessionManager(requireContext())
         deviceViewModel = ViewModelProvider(requireActivity())[DeviceViewModel::class.java]
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        guideViewModel = ViewModelProvider(requireActivity())[GuideViewModel::class.java]
+
+        setupRecyclerView()
+
+        guideViewModel.guides.observe(viewLifecycleOwner) { guides ->
+            val homeGuides = guides.take(3)
+            guideAdapter.updateData(homeGuides)
+        }
+        
+        guideViewModel.fetchGuides()
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.googleMapHome) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -128,6 +143,14 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
         mInterfaceMap = googleMap
         googleMap.uiSettings.isZoomControlsEnabled = true
         moveCameraToUserLocation()
+    }
+
+    private fun setupRecyclerView() {
+        guideAdapter = GuideAdapter(emptyList())
+        binding.rvGuidesHome.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = guideAdapter
+        }
     }
 
     private fun moveCameraToUserLocation() {

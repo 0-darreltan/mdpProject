@@ -200,7 +200,7 @@ const sampleGuides = [
     summary:
       "Panduan lengkap merawat baterai smartphone Anda dengan pengisian daya yang benar dan menghindari overcharging untuk umur baterai yang lebih panjang.",
     image_url:
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cdbf3?q=80&w=600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600&auto=format&fit=crop",
     file_url:
       "https://www.samsung.com/id/support/mobile-devices/how-to-keep-your-galaxy-battery-healthy/",
   },
@@ -283,6 +283,7 @@ const seedData = async () => {
 
     await User.deleteMany();
     await DropoffLocation.deleteMany();
+    await Guide.deleteMany();
     console.log("Old data cleared from Users and Locations.");
 
     const encryptedUsers = await Promise.all(

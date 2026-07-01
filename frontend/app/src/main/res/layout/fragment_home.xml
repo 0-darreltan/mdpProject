@@ -291,34 +291,24 @@
                     android:textColor="#1F2937"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/cvGuideHome1"
+                    app:layout_constraintBottom_toTopOf="@+id/rvGuidesHome"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cvMapHome" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvGuideHome1"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvGuidesHome"
                     android:layout_width="match_parent"
-                    android:layout_height="320dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    app:cardCornerRadius="10dp"
-                    app:layout_constraintBottom_toTopOf="@+id/cvGuideHome2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvHome7" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvGuideHome2"
-                    android:layout_width="match_parent"
-                    android:layout_height="320dp"
-                    app:cardCornerRadius="10dp"
+                    android:nestedScrollingEnabled="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cvGuideHome1" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvHome7"
+                    tools:listitem="@layout/item_guide" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
