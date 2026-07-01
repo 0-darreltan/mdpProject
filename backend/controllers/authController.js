@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 
 const register = async (req, res) => {
   try {
@@ -159,13 +160,101 @@ const changePassword = async (req, res) => {
 };
 
 const forgotPassword = async (req, res) => {
-  // Dummy implementation for now to prevent crashes
-  return res.status(200).json({ success: true, message: "Forgot password mock endpoint" });
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email harus diisi!" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "Email tidak ditemukan!" });
+    }
+
+    const resetToken = crypto.randomBytes(20).toString("hex");
+
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = Date.now() + 3600000; 
+    await user.save();
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "jiewandana888@gmail.com", 
+        pass: "wgfc kayl gthq rwab",  
+      },
+    });
+
+    const mailOptions = {
+      to: user.email,
+      from: '"ReTech Support" <jiewandana888@gmail.com>',
+      subject: "Reset Password ReTech",
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px;">
+          <h2 style="color: #0F9D58;">Reset Password ReTech</h2>
+          <p>Kami menerima permintaan untuk mereset password Anda.</p>
+          <p>Silakan gunakan kode token di bawah ini pada aplikasi Anda:</p>
+          <div style="background: #f4f4f4; padding: 10px; font-size: 20px; font-weight: bold; text-align: center; border-radius: 5px;">
+            ${resetToken}
+          </div>
+          <p>Token ini akan kadaluarsa dalam waktu 1 jam.</p>
+          <p>Jika Anda tidak meminta ini, silakan abaikan email ini.</p>
+        </div>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return res.status(200).json({ 
+      success: true, 
+      message: "Token reset password telah dikirim ke email Anda." 
+    });
+
+  } catch (err) {
+  console.error("Error detail:", err);
+  return res.status(500).json({ message: "Error: " + err.message }); 
+}
+
 };
 
 const resetPassword = async (req, res) => {
-  // Dummy implementation for now to prevent crashes
-  return res.status(200).json({ success: true, message: "Reset password mock endpoint" });
+  try {
+    const { token, newPassword } = req.body;
+
+    if (!token || !newPassword) {
+      return res.status(400).json({ message: "Token dan password baru harus diisi!" });
+    }
+
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: "Token tidak valid atau sudah kadaluarsa!" });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ message: "Password baru harus minimal 6 karakter!" });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    return res.status(200).json({ 
+      success: true, 
+      message: "Password berhasil diperbarui! Silakan login kembali." 
+    });
+
+  } catch (err) {
+    console.error("Error resetPassword:", err);
+    return res.status(500).json({ message: "Server Error saat reset password" });
+  }
 };
 
 module.exports = {

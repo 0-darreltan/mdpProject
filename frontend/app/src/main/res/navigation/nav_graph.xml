@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://tools.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:tools2="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
@@ -126,7 +126,7 @@
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.example.retech.ui.auth.ForgetPasswordFragment"
-        android:label="fragment_forget_password"
+        android:label="Lupa Password"
         tools2:layout="@layout/fragment_forget_password" >
         <action
             android:id="@+id/action_forgetPasswordFragment_to_loginFragment"
@@ -139,7 +139,7 @@
     <fragment
         android:id="@+id/newPasswordFragment"
         android:name="com.example.retech.ui.auth.NewPasswordFragment"
-        android:label="fragment_new_password"
+        android:label="Buat Password Baru"
         tools2:layout="@layout/fragment_new_password" >
         <action
             android:id="@+id/action_newPasswordFragment_to_loginFragment"

@@ -65,8 +65,9 @@ class RegisterFragment : Fragment() {
     private fun setupObservers() {
         userViewModel.authResult.observe(viewLifecycleOwner) { response ->
             if (response != null) {
-                Toast.makeText(context, "Registrasi Berhasil! Selamat datang ${response.user?.name}", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                Toast.makeText(context, "Registrasi Berhasil! Silakan login untuk melanjutkan.", Toast.LENGTH_SHORT).show()
+                // Mengubah navigasi dari Home ke Login setelah register berhasil
+                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
             }
         }
 

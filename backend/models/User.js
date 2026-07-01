@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
     default: Date.now,
   },
   resetPasswordToken: String,
-  resetPasswordExpires: Date,
+  resetPasswordExpires: Date
 });
 
 UserSchema.methods.generateAuthToken = function () {

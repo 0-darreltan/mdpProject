@@ -7,9 +7,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController // Tambahkan import ini jika belum ada
+import androidx.navigation.ui.setupWithNavController
 import com.example.retech.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView // Tambahkan import ini
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             when (destination.id) {
-                R.id.loginFragment, R.id.registerFragment, R.id.forgetPasswordFragment -> {
+                R.id.loginFragment, R.id.registerFragment, R.id.forgetPasswordFragment, R.id.newPasswordFragment -> {
                     supportActionBar?.hide()
                     binding.toolbar.visibility = View.GONE
                     bottomNav.visibility = View.GONE
