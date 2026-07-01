@@ -8,6 +8,7 @@ import com.example.retech.data.remote.RetrofitClient
 import com.example.retech.databaseModel.AuthResponse
 import com.example.retech.databaseModel.Users
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class UserViewModel : ViewModel() {
 
@@ -20,12 +21,6 @@ class UserViewModel : ViewModel() {
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> get() = _error
 
-    private val _forgotPasswordSuccess = MutableLiveData<Boolean>()
-    val forgotPasswordSuccess: LiveData<Boolean> get() = _forgotPasswordSuccess
-
-    private val _resetSuccess = MutableLiveData<Boolean?>()
-    val resetSuccess: LiveData<Boolean?> get() = _resetSuccess
-
     fun register(name: String, email: String, password: String) {
         _isLoading.value = true
         viewModelScope.launch {
@@ -35,7 +30,7 @@ class UserViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _authResult.value = response.body()
                 } else {
-                    _error.value = "Registration Failed: ${response.message()}"
+                    _error.value = parseError(response.errorBody()?.string()) ?: "Registration Failed"
                 }
             } catch (e: Exception) {
                 _error.value = "Error: ${e.message}"
@@ -54,7 +49,7 @@ class UserViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _authResult.value = response.body()
                 } else {
-                    _error.value = "Login Failed: Invalid credentials"
+                    _error.value = parseError(response.errorBody()?.string()) ?: "Login Failed"
                 }
             } catch (e: Exception) {
                 _error.value = "Error: ${e.message}"
@@ -66,25 +61,20 @@ class UserViewModel : ViewModel() {
 
     fun loginWithGoogle(name: String, email: String) {
         _isLoading.value = true
-        
-        val googleUser = Users(
-            _id = "google_${email}",
-            name = name,
-            email = email,
-            auth_provider = "google"
-        )
-        
-        val response = AuthResponse(
-            success = true,
-            message = "Login Google Sukses (Lokal)",
-            token = "local_google_token",
-            user = googleUser
-        )
-
-        // Set value langsung tanpa memanggil Retrofit
+        val googleUser = Users(_id = "google_${email}", name = name, email = email, auth_provider = "google")
+        val response = AuthResponse(success = true, message = "Login Google Sukses", token = "local_token", user = googleUser)
         _authResult.value = response
         _isLoading.value = false
     }
+
+    private val _forgotPasswordSuccess = MutableLiveData<Boolean>()
+    val forgotPasswordSuccess: LiveData<Boolean> get() = _forgotPasswordSuccess
+
+    private val _resetSuccess = MutableLiveData<Boolean?>()
+    val resetSuccess: LiveData<Boolean?> get() = _resetSuccess
+
+    private val _changePasswordSuccess = MutableLiveData<Boolean?>()
+    val changePasswordSuccess: LiveData<Boolean?> get() = _changePasswordSuccess
 
     fun forgotPassword(email: String) {
         _isLoading.value = true
@@ -95,7 +85,7 @@ class UserViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _forgotPasswordSuccess.value = true
                 } else {
-                    _error.value = "Failed: ${response.message()}"
+                    _error.value = parseError(response.errorBody()?.string()) ?: "Failed"
                     _forgotPasswordSuccess.value = false
                 }
             } catch (e: Exception) {
@@ -116,7 +106,7 @@ class UserViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _resetSuccess.value = true
                 } else {
-                    _error.value = "Failed: ${response.message()}"
+                    _error.value = parseError(response.errorBody()?.string()) ?: "Failed"
                     _resetSuccess.value = false
                 }
             } catch (e: Exception) {
@@ -127,9 +117,6 @@ class UserViewModel : ViewModel() {
             }
         }
     }
-    
-    private val _changePasswordSuccess = MutableLiveData<Boolean?>()
-    val changePasswordSuccess: LiveData<Boolean?> get() = _changePasswordSuccess
 
     fun changePassword(email: String, oldPassword: String, newPassword: String) {
         _isLoading.value = true
@@ -144,7 +131,7 @@ class UserViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _changePasswordSuccess.value = true
                 } else {
-                    _error.value = "Failed: ${response.message()}"
+                    _error.value = parseError(response.errorBody()?.string()) ?: "Failed"
                     _changePasswordSuccess.value = false
                 }
             } catch (e: Exception) {
@@ -158,5 +145,15 @@ class UserViewModel : ViewModel() {
     
     fun resetChangePasswordState() {
         _changePasswordSuccess.value = null
+    }
+
+    private fun parseError(errorBody: String?): String? {
+        return try {
+            if (errorBody.isNullOrEmpty()) return null
+            val jsonObject = org.json.JSONObject(errorBody)
+            jsonObject.getString("message")
+        } catch (e: Exception) {
+            null
+        }
     }
 }

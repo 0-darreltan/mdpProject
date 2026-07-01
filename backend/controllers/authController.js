@@ -158,9 +158,21 @@ const changePassword = async (req, res) => {
   }
 };
 
+const forgotPassword = async (req, res) => {
+  // Dummy implementation for now to prevent crashes
+  return res.status(200).json({ success: true, message: "Forgot password mock endpoint" });
+};
+
+const resetPassword = async (req, res) => {
+  // Dummy implementation for now to prevent crashes
+  return res.status(200).json({ success: true, message: "Reset password mock endpoint" });
+};
+
 module.exports = {
   register,
   login,
   loginWithGoogle,
   changePassword,
+  forgotPassword,
+  resetPassword,
 };
